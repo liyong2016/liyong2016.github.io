@@ -1,0 +1,98 @@
+<html>
+<head>
+	
+	<title>VirtualBox命令行</title>
+	<meta name="keywords" content="My Blog" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        <script src="/js/util.js"></script>
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+
+</head>
+
+<body>
+
+
+<h2 class="title">VirtualBox命令行</h2>
+<!---
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2017年10月23日
+
+
+
+
+ </div>
+--->
+</div>
+
+<h2 id="1-如果修改虚拟机的配置，需要先关闭虚拟机"><a href="#1-如果修改虚拟机的配置，需要先关闭虚拟机" class="headerlink" title="1 . 如果修改虚拟机的配置，需要先关闭虚拟机"></a>1 . 如果修改虚拟机的配置，需要先关闭虚拟机</h2><h2 id="2-使用VBoxManage命令行查看虚拟机信息也可以修改配置"><a href="#2-使用VBoxManage命令行查看虚拟机信息也可以修改配置" class="headerlink" title="2 . 使用VBoxManage命令行查看虚拟机信息也可以修改配置"></a>2 . 使用VBoxManage命令行查看虚拟机信息也可以修改配置</h2><p>VBoxManage [-v|-version]  显示virtualbox的版本号</p>
+<p>VBoxManage list vms|runningvms  显示列表虚拟机|正在运行的虚拟机</p>
+<p>VBoxManage showvminfo | 显示指定虚拟机的信息</p>
+<blockquote>
+<p>[-details] 显示详细信息</p>
+<p>[-statistics] 显示统计信息</p>
+<p>[-machinereadable] 以清晰的格式显示虚拟机信息</p>
+</blockquote>
+<p>VBoxManage registervm 将指定文件所在的虚拟机添加到列表</p>
+<p>VBoxManage unregistervm | 从虚拟机列表清除指定的虚拟机</p>
+<blockquote>
+<p>[-delete] 从虚拟机列表删除指定的虚拟机</p>
+</blockquote>
+<p>VBoxManage createvm -name 创建指定名称的虚拟机</p>
+<blockquote>
+<p>[-register] 将创建的虚拟机添加到列表</p>
+<p>[-basefolder 指定虚拟机的基础目录</p>
+<p>[-settingsfile ] 指定虚拟机配置文件的基础目录</p>
+<p>[-uuid ] 创建指定uuid的虚拟机</p>
+</blockquote>
+<p>VBoxManage modifyvm 编辑指定的虚拟机的配置</p>
+<blockquote>
+<p>[-name ] 修改虚拟机的名称<br>[-ostype ]修改虚拟机的操作系统类型<br>[-memory ] 修改虚拟机的内存大小<br>[-vram ] 修改虚拟机的显存大小</p>
+</blockquote>
+
+
+<!--<a href="http://yoursite.com/2017/10/23/change-virtualbox/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'liyong-science'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=undefined&web_id=undefined" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>
