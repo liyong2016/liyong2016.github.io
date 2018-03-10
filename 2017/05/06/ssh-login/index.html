@@ -44,15 +44,15 @@
 --->
 </div>
 
-<h3 id="生成证书公私钥"><a href="#生成证书公私钥" class="headerlink" title="生成证书公私钥"></a>生成证书公私钥</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ ssh-keygen -t rsa -P <span class="string">''</span></div></pre></td></tr></table></figure>
-<p>默认在 ~/.ssh目录生成两个文件：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">id_rsa：私钥</div><div class="line">id_rsa.pub：公钥</div></pre></td></tr></table></figure></p>
-<h3 id="将公钥复制到远程服务器"><a href="#将公钥复制到远程服务器" class="headerlink" title="将公钥复制到远程服务器"></a>将公钥复制到远程服务器</h3><h5 id="方式一："><a href="#方式一：" class="headerlink" title="方式一："></a>方式一：</h5><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ scp ~/.ssh/id_rsa.pub xxx@host:/home/&#123;username&#125;/.ssh/id_rsa.pub</div></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ mv ~/.ssh/id_rsa.pub  ~/.ssh/authorized_keys</div></pre></td></tr></table></figure>
+<h3 id="生成证书公私钥"><a href="#生成证书公私钥" class="headerlink" title="生成证书公私钥"></a>生成证书公私钥</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -P <span class="string">''</span></span><br></pre></td></tr></table></figure>
+<p>默认在 ~/.ssh目录生成两个文件：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">id_rsa：私钥</span><br><span class="line">id_rsa.pub：公钥</span><br></pre></td></tr></table></figure></p>
+<h3 id="将公钥复制到远程服务器"><a href="#将公钥复制到远程服务器" class="headerlink" title="将公钥复制到远程服务器"></a>将公钥复制到远程服务器</h3><h5 id="方式一："><a href="#方式一：" class="headerlink" title="方式一："></a>方式一：</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ scp ~/.ssh/id_rsa.pub xxx@host:/home/&#123;username&#125;/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ mv ~/.ssh/id_rsa.pub  ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
 <p>因为配置文件/etc/ssh/sshd_config里是.ssh/authorized_keys，所以要重命名。</p>
 <p>注意权限设置很重要! .ssh目录权限应为700</p>
-<h5 id="方式二："><a href="#方式二：" class="headerlink" title="方式二："></a>方式二：</h5><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ ssh-copy-id -i ~/.ssh/id_rsa.pub xxx@host</div></pre></td></tr></table></figure>
+<h5 id="方式二："><a href="#方式二：" class="headerlink" title="方式二："></a>方式二：</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ssh-copy-id -i ~/.ssh/id_rsa.pub xxx@host</span><br></pre></td></tr></table></figure>
 <p> ssh-copy-id命令可以把本地主机的公钥复制到远程主机的authorized_keys文件上，也会给远程主机的~/.ssh, 和~/.ssh/authorized_keys设置合适的权限。</p>
-<h3 id="重启ssh服务"><a href="#重启ssh服务" class="headerlink" title="重启ssh服务"></a>重启ssh服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">$ systemctl restart sshd.service</div></pre></td></tr></table></figure>
+<h3 id="重启ssh服务"><a href="#重启ssh服务" class="headerlink" title="重启ssh服务"></a>重启ssh服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ systemctl restart sshd.service</span><br></pre></td></tr></table></figure>
 
 
 <!--<a href="http://yoursite.com/2017/05/06/ssh-login/#disqus_thread" class="article-comment-link">Comments</a>

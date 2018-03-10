@@ -53,6 +53,8 @@
 <p>3 . 代码依赖</p>
 <blockquote>
 <p>为了利用多核，Python开始支持多线程。而解决多线程之间数据完整性和状态同步的最简单方法自然就是加锁。于是有了GIL这把超级大锁，而当越来越多的代码库开发者接受了这种设定后，他们开始大量依赖这种特性（即默认python内部对象是thread-safe的，无需在实现时考虑额外的内存锁和同步操作）。<br>慢慢的这种实现方式被发现是蛋疼且低效的。但当大家试图去拆分和去除GIL的时候， 发现大量库代码开发者已经重度依赖GIL而非常难以去除了。</p>
+</blockquote>
+<blockquote>
 <p>——原文链接<a href="http://cenalulu.github.io/python/gil-in-python/">http://cenalulu.github.io/python/gil-in-python/</a></p>
 </blockquote>
 <p>这个问题很有意思，最近代码也遇到一个问题，配置文件中有一部分整个代码处理流程都认为是一定会存在的，从没有考虑不存在的情况，但是现在有个服务可以不需要，删掉后就会有问题，同时修改代码成本比较高。</p>
