@@ -101,14 +101,16 @@
 <h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><p>pbr要求tag都是要<strong>签名</strong>的，也就是打tag时要使用git tag -a -s X.Y.Z的形式。</p>
 <p>pbr 支持两种tag形式<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1 . bare version tag (e.g. 0.1.0)</span><br><span class="line">2 . 带有前缀 v 或者 V (e.g. v0.1.0))</span><br></pre></td></tr></table></figure></p>
 <h3 id="创建tag如何使用GPG签名"><a href="#创建tag如何使用GPG签名" class="headerlink" title="创建tag如何使用GPG签名"></a>创建tag如何使用GPG签名</h3><p>1 . 安装：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Mac 环境下:</span><br><span class="line"><span class="meta">$</span> brew install gpg</span><br><span class="line">Centos 环境下:</span><br><span class="line"><span class="meta">$</span> yum install gnupg</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Mac 环境下:</span><br><span class="line"><span class="meta">$</span><span class="bash"> brew install gpg</span></span><br><span class="line">Centos 环境下:</span><br><span class="line"><span class="meta">$</span><span class="bash"> yum install gnupg</span></span><br></pre></td></tr></table></figure>
 <p>2 . 生成密钥<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ gpg --gen-key</span><br></pre></td></tr></table></figure></p>
 <p>3 . 查看系统中已有的密钥<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ gpg --list-keys</span><br></pre></td></tr></table></figure></p>
 <p>4 . 输出密钥<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ gpg --armor --export  [用户ID uid]</span><br></pre></td></tr></table></figure></p>
 <p>在输出的内容中，从“—–BEGIN PGP PUBLIC KEY BLOCK—–”复制到“—–END PGP PUBLIC KEY BLOCK—–”。打开 GitHub 设置密钥的网页，粘贴 GPG 密钥.</p>
-<p>5 . 设置git<br>让 Git 使用指定的 GPG 密钥.</p>
-<p>在 ~/.gitconfig 文件中添加下述设置：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[user]</span><br><span class="line">  ...</span><br><span class="line">  signingkey = &lt;GPG-ID&gt;</span><br></pre></td></tr></table></figure></p>
-<p>6 . 使用签名创建tag<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git tag -a -s X.Y.Z</span><br></pre></td></tr></table></figure></p>
+<p>5 . 使用签名</p>
+<p>首先你需要为Git 设置一个用于签名的私钥，通常来说所有的个人项目都用一个私钥进行签名，所以建议设置为全局配置。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git config --global user.signingkey &lt;key ID&gt;</span><br></pre></td></tr></table></figure></p>
+<p>然后就可以使用这个私钥来签名提交。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git commit -S</span><br></pre></td></tr></table></figure></p>
+<p>或者签名标签了。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git tag -s &lt;tag&gt;</span><br></pre></td></tr></table></figure></p>
+<p>如果你想全局默认使用GPG 签名提交，可以全局将commit.gpgsign 设置为true。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git config --global commit.gpgsign true</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>参考文档：</p>
 <ul>

@@ -45,31 +45,31 @@
 </div>
 
 <h2 id="ACL-简介"><a href="#ACL-简介" class="headerlink" title="ACL 简介"></a>ACL 简介</h2><p>ACL—访问控制列表（Access Control List），为Linux文件系统提供了更加灵活的权限机制。可以针对某一个用户或某一个群组来设定特定的权限需求。</p>
-<h3 id="查看文件系统是否支持-ACL"><a href="#查看文件系统是否支持-ACL" class="headerlink" title="查看文件系统是否支持 ACL"></a>查看文件系统是否支持 ACL</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span> tune2fs -l /dev/vda1 | grep "Default mount options:"</span><br><span class="line"></span><br><span class="line">Default mount options:    user_xattr acl</span><br></pre></td></tr></table></figure>
+<h3 id="查看文件系统是否支持-ACL"><a href="#查看文件系统是否支持-ACL" class="headerlink" title="查看文件系统是否支持 ACL"></a>查看文件系统是否支持 ACL</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> tune2fs -l /dev/vda1 | grep <span class="string">"Default mount options:"</span></span></span><br><span class="line"></span><br><span class="line">Default mount options:    user_xattr acl</span><br></pre></td></tr></table></figure>
 <h2 id="两个命令"><a href="#两个命令" class="headerlink" title="两个命令"></a>两个命令</h2><h3 id="setfacl"><a href="#setfacl" class="headerlink" title="setfacl"></a>setfacl</h3><blockquote>
 <p>设置文件或目录的 ACL 权限</p>
 </blockquote>
 <ul>
 <li><p>为 user 设置 ACL</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span> setfacl -m "u:user:permissions" &lt;file/dir&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> setfacl -m <span class="string">"u:user:permissions"</span> &lt;file/dir&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>删除 user 的 ACL 设置</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span> setfacl -x "u:user" &lt;file/dir&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> setfacl -x <span class="string">"u:user"</span> &lt;file/dir&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>为 group 设置 ACL</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span> setfacl -m "g:group:permissions" &lt;file/dir&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> setfacl -m <span class="string">"g:group:permissions"</span> &lt;file/dir&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>删除 group 的 ACL 设置</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span> setfacl -x "g:group" &lt;file/dir&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> setfacl -x <span class="string">"g:group"</span> &lt;file/dir&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>删除文件或目录的全部 ACL 权限</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span> setfacl -b &lt;file/dir&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> setfacl -b &lt;file/dir&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <h3 id="getfacl"><a href="#getfacl" class="headerlink" title="getfacl"></a>getfacl</h3><blockquote>
 <p>获取文件或目录的 ACL 权限</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span> getfacl filename/dirname</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> getfacl filename/dirname</span></span><br></pre></td></tr></table></figure>
 
 
 <!--<a href="http://yoursite.com/2018/01/20/acl/#disqus_thread" class="article-comment-link">Comments</a>
