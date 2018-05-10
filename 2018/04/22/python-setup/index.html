@@ -86,10 +86,11 @@
 <p>setup.cfg<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[metadata]</span><br><span class="line">name = mypackage</span><br><span class="line">description = A short description</span><br><span class="line">description-file = README.rst</span><br><span class="line">author = John Doe</span><br><span class="line">author-email = john.doe@example.com</span><br><span class="line">license = BSD</span><br></pre></td></tr></table></figure></p>
 <h3 id="pbr-打包版本号（version）"><a href="#pbr-打包版本号（version）" class="headerlink" title="pbr 打包版本号（version）"></a>pbr 打包版本号（version）</h3><p>使用pbr版本号有两种方式：postversioning和preversioning，postversioning是默认方式。要是用preversioning的方式，则需要设置setup.cfg文件中的[metadata]段的version字段的值。无论采用哪种方式，版本号都是从git的历史推理得到的。pbr使用的版本号标准是Linux/Python Compatible Semantic Versioning 3.0.0，简单的说就是下面这个标准：<br> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Given a version number MAJOR.MINOR.PATCH, increment the:</span><br><span class="line"></span><br><span class="line">MAJOR version when you make incompatible API changes,</span><br><span class="line">MINOR version when you add functionality in a backwards-compatible manner</span><br><span class="line">PATCH version when you make backwards-compatible bug fixes.</span><br></pre></td></tr></table></figure></p>
 <p>pbr的版本推导按照如下的步骤进行（注意，最终版本号才是软件包的版本号）：</p>
-<ul>
+<ol>
 <li>如果设置version的值为一个给定的版本号，且这个版本号刚好对应一个tag，则这个值就是最终版本号（注意，这里只有签名的tag才有效）。</li>
-<li>如果不是上面情况，则pbr会找到最近的一个tag，然后为其MINOR值加1得到一个比它大的最小版本号（注意，这个还不是最终版本号）。<br>然后pbr会从最近的一个tag开始遍历所有的git commit，并检查每个提交的commit message，在commit message中查找Sem-Ver:这样的行：</li>
-</ul>
+<li>如果不是上面情况，则pbr会找到最近的一个tag，然后为其MINOR值加1得到一个比它大的最小版本号（注意，这个还不是最终版本号）。</li>
+<li>然后pbr会从最近的一个tag (如果没有tag，默认是0.0.1) 开始遍历所有的git commit，并检查每个提交的commit message，在commit message中查找Sem-Ver:这样的行：</li>
+</ol>
 <p>Sem-Ver的值有如下几种：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">feature</span><br><span class="line">api-break</span><br><span class="line">deprecation</span><br><span class="line">bugfix</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">如果Sem-Ver的值是bugfix，则会增加版本号中PATCH部分的值。</span><br><span class="line">如果Sem-Ver的值是feature或者deprecation，则会增加版本号中MINOR部分的值。</span><br><span class="line">如果Sem-Ver的值是api-break，则会增加版本号中MAJOR部分的值。</span><br><span class="line">如果Sem-Ver行不存在，则认为值是bugfix。</span><br><span class="line">如果Sem-Ver的值不在上面列出的范围内，则会给出警告。</span><br></pre></td></tr></table></figure>
 <ul>
