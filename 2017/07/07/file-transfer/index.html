@@ -58,7 +58,7 @@
 <p>注意点：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1 . /usr/bin/expect就是 which expect 的路径</span><br><span class="line">2 . 脚本需要执行权限。 chmod +x autoscp.sh</span><br><span class="line">3 . 执行脚本是./autoscp.sh, 不是 sh autoscp.sh。否则会报一些命令not found。因为该脚本用的并不是bash,脚本第一行已经写明。</span><br><span class="line">4 . expect中执行命令是有一个timeout的设定的，默认超时时间为10s。</span><br><span class="line">若一条命令未timeout限定时间内执行完，就会中断该条命令的下一条命令。</span><br><span class="line">在expect脚本中设定timeout，可覆盖原本的timeout.</span><br></pre></td></tr></table></figure></p>
 
 
-<!--<a href="http://yoursite.com/2017/07/07/file-transfer/#disqus_thread" class="article-comment-link">Comments</a>
+<!--<a href="http://liyong.science/2017/07/07/file-transfer/#disqus_thread" class="article-comment-link">Comments</a>
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title>Python 打包学习</title>
+      <link href="/2018/04/22/python-setup/"/>
+      <url>/2018/04/22/python-setup/</url>
+      <content type="html"><![CDATA[<p>Python的软件包一开始是没有官方的标准分发格式的。 后来不同的工具都开始引入一些比较通用的归档格式。比如，setuptools引入了Egg格式。 但是，这些都不是官方支持的，存在元数据和包结构彼此不兼容的问题。因此，为了解决这个问题， PEP 427定义了新的分发包标准，名为Wheel。目前pip和setuptools工具都支持Wheel格式。</p><h1 id="两种打包方式"><a href="#两种打包方式" class="headerlink" title="两种打包方式"></a>两种打包方式</h1><h2 id="纯-setuptools-打包"><a href="#纯-setuptools-打包" class="headerlink" title="纯 setuptools 打包"></a><a href="https://setuptools.readthedocs.io/en/latest/setuptools.html">纯 setuptools 打包</a></h2><ul><li>setuptools 是Python distutils增强版的集合，它可以帮助我们更简单的创建和分发Python包，特别是对其他包有依赖关系时。</li></ul><h3 id="使用-setuptools-最小的setup-py配置："><a href="#使用-setuptools-最小的setup-py配置：" class="headerlink" title="使用 setuptools 最小的setup.py配置："></a>使用 setuptools 最小的setup.py配置：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">from setuptools import setup, find_packages</span><br><span class="line">setup(</span><br><span class="line">    name=&quot;HelloWorld&quot;,</span><br><span class="line">    version=&quot;0.1&quot;,</span><br><span class="line">    packages=find_packages(),</span><br><span class="line">)</span><br></pre></td></tr></table></figure><p>setuptools 通过find_packages函数来自动包含所有的packages，对于大型软件来说，极大的方便了packages的管理。</p><h3 id="setup-py的setup函数的常用参数："><a href="#setup-py的setup函数的常用参数：" class="headerlink" title="setup.py的setup函数的常用参数："></a>setup.py的setup函数的常用参数：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">name -&gt; 为项目名称，和顶层目录名称一致;</span><br><span class="line">version -&gt; 是项目当前的版本，1.0.0.dev1表示1.0.0版，目前还处于开发阶段</span><br><span class="line">description -&gt; 是包的简单描述，这个包是做什么的</span><br><span class="line">long_description -&gt; 这是项目的详细描述，出现在pypi软件的首页上</span><br><span class="line">url -&gt; 为项目访问地址，我的项目放在github上。</span><br><span class="line">author -&gt; 为项目开发人员名称</span><br><span class="line">author_email -&gt; 为项目开发人员联系邮件</span><br><span class="line">license -&gt; 为本项目遵循的授权许可</span><br><span class="line">classifiers -&gt; 有很多设置，具体内容可以参考官方文档</span><br><span class="line">keywords -&gt; 是本项目的关键词，理解为标签</span><br><span class="line">packages -&gt; 是本项目包含哪些包，使用工具函数自动发现包</span><br><span class="line">package_data -&gt; 通常包含与包实现相关的文件</span><br><span class="line">data_files -&gt; 指定其他的一些文件（如配置文件）</span><br><span class="line">install_requires -&gt; 指定了在安装这个包的过程中, 需要哪些其他包。 如果条件不满足, 则会自动安装依赖的库。</span><br><span class="line">entry_points -&gt; 可以定义安装该模块后执行的脚本，比如将某个函数作为</span><br></pre></td></tr></table></figure><h3 id="常用的-setuptools-打包命令有："><a href="#常用的-setuptools-打包命令有：" class="headerlink" title="常用的 setuptools 打包命令有："></a>常用的 setuptools 打包命令有：</h3><ul><li><p>源码打包(tar.gz):</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ python setup.py sdist</span><br></pre></td></tr></table></figure></li><li><p>通用egg格式:</p><blockquote><p>本质上是一个压缩文件，只是扩展名换了，里面也包含了项目元数据以及源代码，由setuptools项目引入</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ python setup.py bdist_egg</span><br></pre></td></tr></table></figure></blockquote></li><li><p>通用whell格式:</p><blockquote><p>本质上是一个压缩文件，只是扩展名换了，里面也包含了项目元数据和代码，由PEP 427引入</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ python setup.py bdist_wheel</span><br></pre></td></tr></table></figure></blockquote></li><li><p>rpm格式打包：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ python setup.py bdist_rpm</span><br></pre></td></tr></table></figure></li><li><p>应用安装</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ python setup.py install</span><br></pre></td></tr></table></figure></li><li><p>以开发方式安装</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ python setup.py develop</span><br></pre></td></tr></table></figure></li></ul><blockquote><p>使用”develop”开发方式安装的话，应用代码不会真的被拷贝到本地Python环境的”site-packages”目录下，而是在”site-packages”目录里创建一个指向当前应用位置的链接。这样如果当前位置的源码被改动，就会马上反映到”site-packages”里。</p></blockquote><h2 id="使用-pbr-打包"><a href="#使用-pbr-打包" class="headerlink" title="使用 pbr 打包"></a><a href="https://docs.openstack.org/pbr/latest/index.html">使用 pbr 打包</a></h2><p>OpenStack也是使用setuptools工具来进行打包，不过它引入了一个辅助工具pbr来配合setuptools完成打包工作。</p><p>那么OpenStack社区为啥要开发pbr呢？因为setuptools库使用起来还是有点麻烦，参数太多，而且直接通过指定setup函数的参数的方法实在太不方便了。pbr就是为了方便而生的，它带了了如下的改进：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">使用setup.cfg文件来提供包的元数据。这个是从disutils2学来的。</span><br><span class="line">基于requirements.txt文件来实现自动依赖安装。requirements.txt文件中包含了一个项目所要依赖的库。</span><br><span class="line">利用Sphinx实现文档自动化。</span><br><span class="line">基于git history自动生成AUTHORS和ChangeLog文件。</span><br><span class="line">针对git自动创建文件列表。</span><br><span class="line">基于git tags的版本号管理。</span><br></pre></td></tr></table></figure></p><h3 id="pbr打包配置"><a href="#pbr打包配置" class="headerlink" title="pbr打包配置"></a>pbr打包配置</h3><p>setup.py<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">import setuptools</span><br><span class="line">setuptools.setup(setup_requires=[&apos;pbr&apos;],pbr=True)</span><br></pre></td></tr></table></figure></p><p>setup.cfg<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[metadata]</span><br><span class="line">name = mypackage</span><br><span class="line">description = A short description</span><br><span class="line">description-file = README.rst</span><br><span class="line">author = John Doe</span><br><span class="line">author-email = john.doe@example.com</span><br><span class="line">license = BSD</span><br></pre></td></tr></table></figure></p><h3 id="pbr-打包版本号（version）"><a href="#pbr-打包版本号（version）" class="headerlink" title="pbr 打包版本号（version）"></a>pbr 打包版本号（version）</h3><p>使用pbr版本号有两种方式：postversioning和preversioning，postversioning是默认方式。要是用preversioning的方式，则需要设置setup.cfg文件中的[metadata]段的version字段的值。无论采用哪种方式，版本号都是从git的历史推理得到的。pbr使用的版本号标准是Linux/Python Compatible Semantic Versioning 3.0.0，简单的说就是下面这个标准：<br> <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Given a version number MAJOR.MINOR.PATCH, increment the:</span><br><span class="line"></span><br><span class="line">MAJOR version when you make incompatible API changes,</span><br><span class="line">MINOR version when you add functionality in a backwards-compatible manner</span><br><span class="line">PATCH version when you make backwards-compatible bug fixes.</span><br></pre></td></tr></table></figure></p><p>pbr的版本推导按照如下的步骤进行（注意，最终版本号才是软件包的版本号）：</p><ol><li>如果设置version的值为一个给定的版本号，且这个版本号刚好对应一个tag，则这个值就是最终版本号（注意，这里只有签名的tag才有效）。</li><li>如果不是上面情况，则pbr会找到最近的一个tag，然后为其MINOR值加1得到一个比它大的最小版本号（注意，这个还不是最终版本号）。</li><li>然后pbr会从最近的一个tag (如果没有tag，默认是0.0.1) 开始遍历所有的git commit，并检查每个提交的commit message，在commit message中查找Sem-Ver:这样的行：</li></ol><p>Sem-Ver的值有如下几种：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">feature</span><br><span class="line">api-break</span><br><span class="line">deprecation</span><br><span class="line">bugfix</span><br></pre></td></tr></table></figure></p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">如果Sem-Ver的值是bugfix，则会增加版本号中PATCH部分的值。</span><br><span class="line">如果Sem-Ver的值是feature或者deprecation，则会增加版本号中MINOR部分的值。</span><br><span class="line">如果Sem-Ver的值是api-break，则会增加版本号中MAJOR部分的值。</span><br><span class="line">如果Sem-Ver行不存在，则认为值是bugfix。</span><br><span class="line">如果Sem-Ver的值不在上面列出的范围内，则会给出警告。</span><br></pre></td></tr></table></figure><ul><li>如果使用的是postversioning的方式，也就是setup.cfg中不指定version的值，则pbr会使用规则3推导出来的值作为目标版本号（只是目标版本号，不是最终版本号）。</li><li>如果使用的是preversioning的方式，也就是setup.cfg中指定了version的值（而且不符合规则1），则会检查指定的version是否高于规则3推导出来的版本号，如果没有，则会抛出异常，如果有，则使用指定的版本号作为目标版本号。</li><li>在得到目标版本号之后，开始计算开发版本号。开发版本号的形式如下：MAJOR.MINOR.PATCH.devN。这里要计算的是devN中的N。这个值等于从最近的git tag开始的提交数量。计算完开发版本号之后，就得到了最终版本号。</li></ul><p>总的来说，从上面的规则计算出来的版本号只有两种形式，一种是发布版本号（对应到某个tag），另一种是开发版本号。</p><h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><p>pbr要求tag都是要<strong>签名</strong>的，也就是打tag时要使用git tag -a -s X.Y.Z的形式。</p><p>pbr 支持两种tag形式<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1 . bare version tag (e.g. 0.1.0)</span><br><span class="line">2 . 带有前缀 v 或者 V (e.g. v0.1.0))</span><br></pre></td></tr></table></figure></p><h3 id="创建tag如何使用GPG签名"><a href="#创建tag如何使用GPG签名" class="headerlink" title="创建tag如何使用GPG签名"></a>创建tag如何使用GPG签名</h3><p>1 . 安装：</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">Mac 环境下:</span><br><span class="line"><span class="meta">$</span><span class="bash"> brew install gpg</span></span><br><span class="line">Centos 环境下:</span><br><span class="line"><span class="meta">$</span><span class="bash"> yum install gnupg</span></span><br></pre></td></tr></table></figure><p>2 . 生成密钥<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ gpg --gen-key</span><br></pre></td></tr></table></figure></p><p>3 . 查看系统中已有的密钥<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ gpg --list-keys</span><br></pre></td></tr></table></figure></p><p>4 . 输出密钥<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ gpg --armor --export  [用户ID uid]</span><br></pre></td></tr></table></figure></p><p>在输出的内容中，从“—–BEGIN PGP PUBLIC KEY BLOCK—–”复制到“—–END PGP PUBLIC KEY BLOCK—–”。打开 GitHub 设置密钥的网页，粘贴 GPG 密钥.</p><p>5 . 使用签名</p><p>首先你需要为Git 设置一个用于签名的私钥，通常来说所有的个人项目都用一个私钥进行签名，所以建议设置为全局配置。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git config --global user.signingkey &lt;key ID&gt;</span><br></pre></td></tr></table></figure></p><p>然后就可以使用这个私钥来签名提交。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git commit -S</span><br></pre></td></tr></table></figure></p><p>或者签名标签了。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git tag -s &lt;tag&gt;</span><br></pre></td></tr></table></figure></p><p>如果你想全局默认使用GPG 签名提交，可以全局将commit.gpgsign 设置为true。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git config --global commit.gpgsign true</span><br></pre></td></tr></table></figure></p><blockquote><p>参考文档：</p><ul><li><a href="https://segmentfault.com/a/1190000002940724">https://segmentfault.com/a/1190000002940724</a></li><li><a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html">http://www.ruanyifeng.com/blog/2013/07/gpg.html</a></li></ul></blockquote>]]></content>
+      
+      
+    </entry>
+    
+    <entry>
+      <title>持续交付：发布可靠软件的系统方法—-读书笔记</title>
+      <link href="/2018/02/04/continuous-delivery-notes/"/>
+      <url>/2018/02/04/continuous-delivery-notes/</url>
+      <content type="html"><![CDATA[<p><a href="https://book.douban.com/subject/6862062/">豆瓣链接</a></p><h1 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a>基础篇</h1><hr><h2 id="第一章-软件交付的问题"><a href="#第一章-软件交付的问题" class="headerlink" title="第一章 软件交付的问题"></a>第一章 软件交付的问题</h2><p>1.6 软件交付原则</p><ul><li>为软件发布创建一个可重复且可靠的过程<br>如何做到：（1）几乎将所有事情自动化。（2）将构建、部署、测试和发布软件所需的东西全部纳入到版本控制管理之中。</li><li>将几乎所有事情自动化<br>自动化是部署流水线的前提。</li><li>把所有的东西都纳入版本控制<br>包括文档，测试脚本，配置脚本，部署脚本，升级和回退脚本等等。</li><li>提前并频繁地做让你感到痛苦的事</li><li>内建质量<br>将软件问题提前暴露，一旦发现流水线有失败，就要马上着手修复。</li><li>“DONE” 意味着 “已发布”<br>一个特性只有交到用户手中才能算 ”DONE”。<blockquote><p>phylee注： 这个原则意味着，1.从开发业务代码到上线生产环境必须要快。否则一个月甚至更长时间才能上线生产环境，开发人员早就忘了。2. 业务开发人员一定会关注代码发布过程，这样也可以不断完善改进流水线，催熟流水线。</p></blockquote></li><li>交付过程是每个成员的责任</li><li>持续改进</li></ul><h2 id="第二章-配置管理"><a href="#第二章-配置管理" class="headerlink" title="第二章 配置管理"></a>第二章 配置管理</h2><h2 id="第三章-持续集成"><a href="#第三章-持续集成" class="headerlink" title="第三章 持续集成"></a>第三章 持续集成</h2><p>3.2 实现持续集成 需要满足3个条件：</p><ul><li>版本控制</li><li>自动化构建</li><li>团队共识<br>团队共识很重要。持续集成不是一种工具，而是一种实践。需要开发团队的给予一定投入并遵守一些准则。</li></ul><h1 id="部署流水线"><a href="#部署流水线" class="headerlink" title="部署流水线"></a>部署流水线</h1><hr><h2 id="第五章-部署流水线解析"><a href="#第五章-部署流水线解析" class="headerlink" title="第五章  部署流水线解析"></a>第五章  部署流水线解析</h2><p>5.3  部署流水线解析</p><ul><li>只生成一次二进制包<br>保证所有环境验证发布包是同一个。</li><li>对不同环境采用同一部署方式<br>代码和应用配置文件分离，应用配置文件和环境相关。生产环境和开发测试环境应该由同一个团队管理。</li><li>对部署进行冒烟测试</li><li>向生产环境的副本中部署<br>开发测试环境尽可能和生产环境相同。</li><li>每次变更都要立即在流水线中传递</li><li>只要有环节失败，就停止整个流水线<br>一旦出现失败，变更团队应停下手头工作，立即着手修复。</li></ul><p>5.7.2 变更的撤销<br>软件版本的快速迭代，不可避免会有一些缺陷，快速回滚是保障快速发布的的重要能力。</p><p>5.8 实现一个部署流水线<br>无论是从零创建新项目，还是想为已有的系统创建一个自动化的流水线，通常都应该使用<strong>增量方法</strong>来实现部署流水线。</p><blockquote><p>phylee注：理解“增量”很重要，流水线的建设从来不是一步到位的，不同公司交付模式不同，流水线也会不太一样，需要使用者和建设者的协作并根据实际交付流程不断完善它。</p></blockquote><p>建立完整流水线一般步骤：</p><ol><li>对价值流进行建模并创建简单的可工作框架<br>能画出从代码提交到发布的整个过程的价值流程图。</li><li>将构建和部署流程自动化</li><li>将单元测试和代码分析自动化</li><li>将验收测试自动化</li><li>将发布自动化</li></ol><h1 id="交付生态圈"><a href="#交付生态圈" class="headerlink" title="交付生态圈"></a>交付生态圈</h1><hr>]]></content>
+      
+      
+        <tags>
+            
+            <tag> CICD </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Shell脚本学习</title>
+      <link href="/2018/01/27/shell-script/"/>
+      <url>/2018/01/27/shell-script/</url>
+      <content type="html"><![CDATA[<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><ol><li><p>定义变量,变量名和等号之间不能有空格。</p><blockquote><p> variableName=”value”</p></blockquote></li><li><p>使用一个定义过的变量，只要在变量名前面加美元符号（$）即可。变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo $variableName</span><br><span class="line">echo $&#123;variableName&#125;</span><br></pre></td></tr></table></figure></li><li><p>特殊变量</p></li></ol><table><thead><tr><th>变量</th><th>含义</th></tr></thead><tbody><tr><td>$0</td><td>当前脚本的文件名</td></tr><tr><td>$n</td><td>传递给脚本或函数的参数。n 是一个数字，表示第几个参数。如：1，2,…</td></tr><tr><td>$#</td><td>传递给脚本或函数的参数个数</td></tr><tr><td>$*</td><td>传递给脚本或函数的所有参数。</td></tr><tr><td>$@</td><td>传递给脚本或函数的所有参数。被双引号(“ “)包含时，与 $* 稍有不同</td></tr><tr><td>$?</td><td>上个命令的退出状态，或函数的返回值。</td></tr><tr><td>$$</td><td>当前 Shell 进程 ID。对于 Shell 脚本，就是这些脚本所在的进程 ID</td></tr></tbody></table><h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>字符串可以用单引号，也可以用双引号，也可以不用引号。</p><ol><li>单引号里的任何字符都会原样输出，单引号字符串中的变量是无效的； 单引号字串中不能出现单引号（对单引号使用转义符后也不行）。</li><li>双引号里可以有变量 双引号里可以出现转义字符</li></ol><h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><h4 id="算数运算符"><a href="#算数运算符" class="headerlink" title="算数运算符"></a>算数运算符</h4><p>原生 bash 不支持简单的数学运算，但是可以通过其他命令来实现，例如 awk 和 expr，expr 最常用。</p><p>例如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">val=`expr 2 + 2`</span><br><span class="line">echo &quot;Total value : $val&quot;</span><br></pre></td></tr></table></figure></p><ol><li>表达式和运算符之间要有空格，例如 2+2 是不对的，必须写成 2 + 2 。</li><li>完整的表达式要被 包含，注意这个字符不是常用的单引号，在 Esc 键下边。</li></ol><h4 id="字符串运算符"><a href="#字符串运算符" class="headerlink" title="字符串运算符"></a>字符串运算符</h4><table><thead><tr><th>运算符</th><th>说明</th><th>举例</th></tr></thead><tbody><tr><td>=</td><td>检测两个字符串是否相等，相等返回 true</td><td>[ a = b ] 返回 false</td></tr><tr><td>!=</td><td>检测两个字符串是否相等，不相等返回 true</td><td>[ a != b ] 返回 true</td></tr><tr><td>-z</td><td>检测字符串长度是否为0，为0返回 true</td><td>[ -z $a ] 返回 false</td></tr><tr><td>-n</td><td>检测字符串长度是否为0，不为0返回 true</td><td>[ -z $a ] 返回 true</td></tr><tr><td>str</td><td>检测字符串是否为空，不为空返回 true</td><td>[ $a ] 返回 true</td></tr></tbody></table><blockquote><p>字符串判断相等是 ”=”，数字判断相等是 “==”</p></blockquote><h2 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if [ expression ]</span><br><span class="line">then</span><br><span class="line">   Statement(s) to be executed if expression is true</span><br><span class="line">fi</span><br></pre></td></tr></table></figure><ol><li>最后必须以 fi 来结尾闭合 if，fi 就是 if 倒过来拼写。</li><li>expression 和方括号([ ])之间必须有空格，否则会有语法错误。</li></ol><h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>在 Shell 中，用括号来表示数组，数组元素用“空格”符号分割开。定义数组的一般形式为：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">array_name=(value1 ... valuen)</span><br></pre></td></tr></table></figure></p><p>读取数组元素值的一般格式是：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$&#123;array_name[index]&#125;</span><br></pre></td></tr></table></figure></p><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>Shell 函数的定义格式:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function function_name () &#123;</span><br><span class="line">    list of commands</span><br><span class="line">    [ return value ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><ol><li>Shell 函数必须先定义后使用。</li><li>函数名前关键字 function 可加可不加。</li><li>函数返回值，可以显式增加 return 语句；如果不加，会将最后一条命令运行结果作为返回值。</li><li>Shell 函数返回值只能是整数，一般用来表示函数执行成功与否，0表示成功，其他值表示失败。如果 return 其他数据，比如一个字符串，往往会得到错误提示：“numeric argument required”。</li><li>在 Shell中，调用函数时可以向其传递参数。在函数体内部，通过 n的形式来获取参数的值，例如，1 表示第一个参数，$2 表示第二个参数…。当 n&gt;=10 时，需要使用 ${n} 来获取参数。</li></ol><h2 id="Here-Document"><a href="#Here-Document" class="headerlink" title="Here Document"></a>Here Document</h2><p>Here Document 是 Shell 中的一种特殊的重定向方式，它的基本的形式如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">command &lt;&lt; delimiter</span><br><span class="line">    document</span><br><span class="line">delimiter</span><br></pre></td></tr></table></figure></p><p>将两个 delimiter 之间的内容(document) 作为输入传递给 command。</p><p>例如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cat &lt;&lt; EOF &gt; test.txt</span><br><span class="line">This is a simple test</span><br><span class="line">This is a simple test</span><br><span class="line">This is a simple test</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure></p><ol><li>结尾的 delimiter 一定要顶格写，前面不能有任何字符，后面也不能有任何字符，包括空格和 tab 缩进。</li><li>开始的 delimiter 前后的空格会被忽略掉。</li><li>EOF 只是一个标识而已，可以替换成任意的合法字符。</li></ol><h2 id="echo-和-printf-的区别"><a href="#echo-和-printf-的区别" class="headerlink" title="echo 和 printf 的区别"></a>echo 和 printf 的区别</h2><ul><li>echo 命令格式<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">echo arg</span><br></pre></td></tr></table></figure></li></ul><p>后面接字符串或者变量可以加双引号也可以不加。可以显示转义字符。</p><ul><li>printf 命令的语法：参数多于格式控制符(%)时，format-string 可以重用，可以将所有参数都转换<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">printf  format-string  [arguments...]</span><br></pre></td></tr></table></figure></li></ul><blockquote><p>注：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">format-string 为格式控制字符串，arguments 为参数列表。</span><br><span class="line">printf 命令不用加括号</span><br><span class="line">format-string 可以没有引号，但最好加上，单引号双引号均可.</span><br><span class="line">参数多于格式控制符(%)时，format-string 可以重用，可以将所有参数都转换</span><br><span class="line">arguments 使用空格分隔，不用逗号</span><br></pre></td></tr></table></figure></p></blockquote><ul><li>printf 不像 echo 那样会自动换行，必须显式添加换行符(\n)。</li><li>printf 由 POSIX 标准所定义，移植性要比 echo 好。</li></ul>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+            <tag> Shell </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Linux 命令备忘</title>
+      <link href="/2018/01/21/linux-cli/"/>
+      <url>/2018/01/21/linux-cli/</url>
+      <content type="html"><![CDATA[<p>本文档主要记录一些 Linux 的命令，不一定常用，只是方便个人查询。</p><ul><li><p>查看系统信息（系统内核名，主机名，内核版本，内核发布号等）</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> uname -a</span></span><br></pre></td></tr></table></figure></li><li><p>查看硬件信息</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> lshw</span></span><br></pre></td></tr></table></figure></li></ul><blockquote><p>若命令不存在，CentOS安装方法“ yum install lshw ”</p></blockquote><ul><li><p>查看块设备（硬盘，闪存驱动器）信息</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lsblk</span><br></pre></td></tr></table></figure></li><li><p>查看 CPU 信息</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lscpu</span><br></pre></td></tr></table></figure></li><li><p>查看文件系统信息</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">fdisk -l</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>ACL学习</title>
+      <link href="/2018/01/20/acl/"/>
+      <url>/2018/01/20/acl/</url>
+      <content type="html"><![CDATA[<h2 id="ACL-简介"><a href="#ACL-简介" class="headerlink" title="ACL 简介"></a>ACL 简介</h2><p>ACL—访问控制列表（Access Control List），为Linux文件系统提供了更加灵活的权限机制。可以针对某一个用户或某一个群组来设定特定的权限需求。</p><h3 id="查看文件系统是否支持-ACL"><a href="#查看文件系统是否支持-ACL" class="headerlink" title="查看文件系统是否支持 ACL"></a>查看文件系统是否支持 ACL</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> tune2fs -l /dev/vda1 | grep <span class="string">"Default mount options:"</span></span></span><br><span class="line"></span><br><span class="line">Default mount options:    user_xattr acl</span><br></pre></td></tr></table></figure><h2 id="两个命令"><a href="#两个命令" class="headerlink" title="两个命令"></a>两个命令</h2><h3 id="setfacl"><a href="#setfacl" class="headerlink" title="setfacl"></a>setfacl</h3><blockquote><p>设置文件或目录的 ACL 权限</p></blockquote><ul><li><p>为 user 设置 ACL</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> setfacl -m <span class="string">"u:user:permissions"</span> &lt;file/dir&gt;</span></span><br></pre></td></tr></table></figure></li><li><p>删除 user 的 ACL 设置</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> setfacl -x <span class="string">"u:user"</span> &lt;file/dir&gt;</span></span><br></pre></td></tr></table></figure></li><li><p>为 group 设置 ACL</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> setfacl -m <span class="string">"g:group:permissions"</span> &lt;file/dir&gt;</span></span><br></pre></td></tr></table></figure></li><li><p>删除 group 的 ACL 设置</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> setfacl -x <span class="string">"g:group"</span> &lt;file/dir&gt;</span></span><br></pre></td></tr></table></figure></li><li><p>删除文件或目录的全部 ACL 权限</p><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> setfacl -b &lt;file/dir&gt;</span></span><br></pre></td></tr></table></figure></li></ul><h3 id="getfacl"><a href="#getfacl" class="headerlink" title="getfacl"></a>getfacl</h3><blockquote><p>获取文件或目录的 ACL 权限</p></blockquote><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> getfacl filename/dirname</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>分布式存储学习资料</title>
+      <link href="/2018/01/07/distributed-storage-introduce/"/>
+      <url>/2018/01/07/distributed-storage-introduce/</url>
+      <content type="html"><![CDATA[<h1 id="分布式存储的文档汇总"><a href="#分布式存储的文档汇总" class="headerlink" title="分布式存储的文档汇总"></a>分布式存储的文档汇总</h1><h2 id="Ceph"><a href="#Ceph" class="headerlink" title="Ceph"></a>Ceph</h2><ul><li><a href="http://docs.ceph.com/docs/master/architecture/">文档</a></li><li><a href="https://github.com/ceph/ceph">源码</a></li></ul><h2 id="GlusterFS"><a href="#GlusterFS" class="headerlink" title="GlusterFS"></a>GlusterFS</h2><ul><li><a href="http://docs.gluster.org/en/latest/">文档</a></li><li><a href="https://github.com/gluster/glusterfs">源码</a></li></ul><h2 id="Swift"><a href="#Swift" class="headerlink" title="Swift"></a>Swift</h2><ul><li><a href="https://docs.openstack.org/swift/latest/">文档</a></li><li><a href="https://github.com/openstack/swift">源码</a></li></ul><h2 id="FastDFS"><a href="#FastDFS" class="headerlink" title="FastDFS"></a>FastDFS</h2><ul><li><a href="https://github.com/happyfish100/fastdfs">源码</a></li><li><a href="http://blog.csdn.net/xingjiarong/article/category/6077032">分布式文件存储FastDFS</a></li><li><a href="http://bbs.chinaunix.net/forum-240-7.html">http://bbs.chinaunix.net/forum-240-7.html</a></li><li><a href="https://www.gitbook.com/book/aceld/project-d-storage">https://www.gitbook.com/book/aceld/project-d-storage</a></li></ul><h2 id="常见开源分布式存储系统对比"><a href="#常见开源分布式存储系统对比" class="headerlink" title="常见开源分布式存储系统对比"></a>常见开源分布式存储系统对比</h2><ul><li><a href="http://www.charmingzhou.com/distributed.html">http://www.charmingzhou.com/distributed.html</a></li></ul>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Doc </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>一个简单的 http 服务</title>
+      <link href="/2017/11/08/Python-http/"/>
+      <url>/2017/11/08/Python-http/</url>
+      <content type="html"><![CDATA[<p>进入要共享的目录，执行如下命令：<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 如果不填 port 的话，默认端口是 8000</span></span><br><span class="line"><span class="comment"># Python2.x</span></span><br><span class="line">$ python -m SimpleHTTPServer &lt;port&gt;</span><br></pre></td></tr></table></figure></p><p>1 . 在本机访问 <a href="http://localhost:8000">http://localhost:8000</a></p><p>2 . 局域网可共享, 访问 http://[共享机器ip]:8000</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li><a href="http://funhacks.net/2016/07/24/python_http_server/">http://funhacks.net/2016/07/24/python_http_server/</a></li></ul>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Mac常用快捷键</title>
+      <link href="/2017/10/27/Mac-shortcuts/"/>
+      <url>/2017/10/27/Mac-shortcuts/</url>
+      <content type="html"><![CDATA[<h1 id="1-常用按键说明"><a href="#1-常用按键说明" class="headerlink" title="1 . 常用按键说明"></a>1 . 常用按键说明</h1><p>Command（⌘）</p><p>Option（⌥）</p><p>Control（⌃）</p><p>Shift（⇧）</p><p>Capslock（⇪）</p><h2 id="2-截图快捷键"><a href="#2-截图快捷键" class="headerlink" title="2 . 截图快捷键"></a>2 . 截图快捷键</h2><ul><li><p>截全屏</p><blockquote><p> Command（⌘）+ shift + 3</p></blockquote></li><li><p>截部分屏幕</p><blockquote><p>Command（⌘）+ shift + 4</p></blockquote></li></ul><h2 id="3-标签页快捷键"><a href="#3-标签页快捷键" class="headerlink" title="3 . 标签页快捷键"></a>3 . 标签页快捷键</h2><p>==&gt; 以下快捷键在浏览器， Finder皆可以使用</p><ul><li><p>新增标签页</p><blockquote><p>Command（⌘）+ t</p></blockquote></li><li><p>关闭标签页</p><blockquote><p>Command（⌘）+ w</p></blockquote></li><li><p>新增视窗</p><blockquote><p>Command（⌘）+ n</p></blockquote></li></ul><h2 id="4-修改内容快捷键"><a href="#4-修改内容快捷键" class="headerlink" title="4 . 修改内容快捷键"></a>4 . 修改内容快捷键</h2><ul><li><p>复制</p><blockquote><p>Command（⌘）+ c</p></blockquote></li><li><p>粘贴</p><blockquote><p>Command（⌘）+ v</p></blockquote></li><li><p>剪切</p><blockquote><p>Command（⌘）+ x</p></blockquote></li><li><p>回退</p><blockquote><p>Command（⌘）+ z</p></blockquote></li><li><p>取消回退</p><blockquote><p>Command（⌘）+ y</p></blockquote></li><li><p>放大字体</p><blockquote><p>Command（⌘）+ +</p></blockquote></li><li><p>缩小字体</p><blockquote><p>Command（⌘）+ -</p></blockquote></li><li><p>刷新</p><blockquote><p>Command（⌘）+ r</p></blockquote><p>类似Windows中F5去刷新网页</p></li><li><p>浏览器将标签网页加入书签</p><blockquote><p>Command（⌘）+ d</p></blockquote></li><li><p>浏览器将所有标签网页加入书签</p><blockquote><p>Command（⌘）+ shift+d</p></blockquote></li><li><p>搜索</p><blockquote><p>Command（⌘）+ f</p></blockquote></li><li><p>偏好设定</p><blockquote><p>Command（⌘）+ ，（逗号）</p></blockquote></li><li><p>关闭程序</p><blockquote><p>Command（⌘）+ q</p></blockquote></li><li><p>删除游标右边文字</p><blockquote><p>Fn + Delete</p></blockquote></li></ul><p>在Windows中有Delete及Backspace，但是在OS X的Delete则是Windows中的Backspace功能，若我们要有Windows中的Delete功能则需要自己加按Fn功能键</p><ul><li>游标移到那一行最前方<blockquote><p>Command（⌘）+⇐（方向鍵向左）</p></blockquote></li></ul><p>Windows的Home功能</p><ul><li>游标移到那一行最后方<blockquote><p>Command（⌘）+⇒（方向鍵向右）</p></blockquote></li></ul><p>Windows的End功能</p><ul><li><p>移到文件最上方</p><blockquote><p>Command（⌘）+⇧（方向鍵向上）</p></blockquote></li><li><p>移到文件最下方</p><blockquote><p>Command（⌘）+⬇︎（方向鍵向下）</p></blockquote></li></ul>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Mac </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>两种 sudo 技巧</title>
+      <link href="/2017/10/23/sudo/"/>
+      <url>/2017/10/23/sudo/</url>
+      <content type="html"><![CDATA[<h2 id="1-Vim-编辑需要root权限的文件忘记使用-sudo"><a href="#1-Vim-编辑需要root权限的文件忘记使用-sudo" class="headerlink" title="1 . Vim 编辑需要root权限的文件忘记使用 sudo:"></a>1 . Vim 编辑需要root权限的文件忘记使用 sudo:</h2><p>不需要不保存强行退出，重新加sudo再编辑。</p><p>只要在Vim的普通模式下，按 :w !sudo tee % ，这样就可以 root 权限来保存文件。</p><h2 id="2-执行-需要root-权限命令忘记加-sudo"><a href="#2-执行-需要root-权限命令忘记加-sudo" class="headerlink" title="2 . 执行 需要root 权限命令忘记加 sudo:"></a>2 . 执行 需要root 权限命令忘记加 sudo:</h2><p>不需要重新输入。</p><p>只要输入 sudo !! 即可，这里的 !! 代表上一条命令。</p>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>VirtualBox命令行</title>
+      <link href="/2017/10/23/change-virtualbox/"/>
+      <url>/2017/10/23/change-virtualbox/</url>
+      <content type="html"><![CDATA[<h2 id="1-如果修改虚拟机的配置，需要先关闭虚拟机"><a href="#1-如果修改虚拟机的配置，需要先关闭虚拟机" class="headerlink" title="1 . 如果修改虚拟机的配置，需要先关闭虚拟机"></a>1 . 如果修改虚拟机的配置，需要先关闭虚拟机</h2><h2 id="2-使用VBoxManage命令行查看虚拟机信息也可以修改配置"><a href="#2-使用VBoxManage命令行查看虚拟机信息也可以修改配置" class="headerlink" title="2 . 使用VBoxManage命令行查看虚拟机信息也可以修改配置"></a>2 . 使用VBoxManage命令行查看虚拟机信息也可以修改配置</h2><p>VBoxManage [-v|-version]  显示virtualbox的版本号</p><p>VBoxManage list vms|runningvms  显示列表虚拟机|正在运行的虚拟机</p><p>VBoxManage showvminfo | 显示指定虚拟机的信息</p><blockquote><p>[-details] 显示详细信息</p></blockquote><blockquote><p>[-statistics] 显示统计信息</p></blockquote><blockquote><p>[-machinereadable] 以清晰的格式显示虚拟机信息</p></blockquote><p>VBoxManage registervm 将指定文件所在的虚拟机添加到列表</p><p>VBoxManage unregistervm | 从虚拟机列表清除指定的虚拟机</p><blockquote><p>[-delete] 从虚拟机列表删除指定的虚拟机</p></blockquote><p>VBoxManage createvm -name 创建指定名称的虚拟机</p><blockquote><p>[-register] 将创建的虚拟机添加到列表</p></blockquote><blockquote><p>[-basefolder 指定虚拟机的基础目录</p></blockquote><blockquote><p>[-settingsfile ] 指定虚拟机配置文件的基础目录</p></blockquote><blockquote><p>[-uuid ] 创建指定uuid的虚拟机</p></blockquote><p>VBoxManage modifyvm 编辑指定的虚拟机的配置</p><blockquote><p>[-name ] 修改虚拟机的名称<br>[-ostype ]修改虚拟机的操作系统类型<br>[-memory ] 修改虚拟机的内存大小<br>[-vram ] 修改虚拟机的显存大小</p></blockquote>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Virtualization </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>学习资料归档</title>
+      <link href="/2017/07/30/learning-materials/"/>
+      <url>/2017/07/30/learning-materials/</url>
+      <content type="html"><![CDATA[<h2 id="Linux学习资料链接"><a href="#Linux学习资料链接" class="headerlink" title="Linux学习资料链接"></a>Linux学习资料链接</h2><ul><li><a href="http://tille.garrels.be/training/tldp/">Introduction to Linux</a></li><li><a href="https://www.gitbook.com/book/lihz1990/transoflptg/details">Linux性能调优指南</a></li></ul><h2 id="Python学习资料链接"><a href="#Python学习资料链接" class="headerlink" title="Python学习资料链接"></a>Python学习资料链接</h2><ul><li><a href="https://awesome-python.com/">awesome-python</a></li><li><a href="http://pythonguidecn.readthedocs.io/zh/latest/index.html">Python最佳实践指南</a></li><li><a href="http://funhacks.net/2016/04/24/python_将字符串转为字典/">如何将字符串转为字典</a></li></ul><h2 id="shell脚本学习资料链接"><a href="#shell脚本学习资料链接" class="headerlink" title="shell脚本学习资料链接"></a>shell脚本学习资料链接</h2><ul><li><a href="https://linuxtoy.org/archives/shell-programming-execute.html">Shell 编程之执行过程</a></li><li><a href="http://www.ruanyifeng.com/blog/2017/11/bash-set.html">Bash 脚本 set 命令教程</a></li><li><a href="http://awk.readthedocs.io/en/latest/index.html">AWK程序设计语言</a></li></ul><h2 id="数据库学习资料链接"><a href="#数据库学习资料链接" class="headerlink" title="数据库学习资料链接"></a>数据库学习资料链接</h2><ul><li><a href="http://wiki.jikexueyuan.com/project/mongodb/">Mongodb 教程</a></li></ul><h2 id="版本控制工具"><a href="#版本控制工具" class="headerlink" title="版本控制工具"></a>版本控制工具</h2><ul><li><a href="https://git-scm.com/book/zh/v2">git-scm</a></li><li><a href="http://svndoc.iusesvn.com/svnbook/1.1/index.html">使用Subversion进行版本控制</a></li><li><a href="http://www.worldhello.net/gotgithub/index.html">GotGitHub</a></li></ul><h2 id="开源监控工具"><a href="#开源监控工具" class="headerlink" title="开源监控工具"></a>开源监控工具</h2><p>1 .Supervisor</p><ul><li><a href="https://github.com/Supervisor/supervisor">源码</a></li><li><a href="https://www.rddoc.com/doc/Supervisor/3.3.1/zh/">中文文档</a></li></ul><p>2 . Monit</p><ul><li><a href="https://github.com/arnaudsj/monit">源码</a></li><li><a href="https://mmonit.com/monit/documentation/monit.html">文档</a></li></ul>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Doc </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>文件传输工具(Linux)</title>
+      <link href="/2017/07/07/file-transfer/"/>
+      <url>/2017/07/07/file-transfer/</url>
+      <content type="html"><![CDATA[<h2 id="sshpass"><a href="#sshpass" class="headerlink" title="sshpass"></a>sshpass</h2><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> yum install sshpass</span></span><br></pre></td></tr></table></figure><h4 id="使用方法（3种）"><a href="#使用方法（3种）" class="headerlink" title="使用方法（3种）"></a>使用方法（3种）</h4><p>1 . 直接用密码<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sshpass -p <span class="string">'host_pass'</span> ssh user@host_ip <span class="string">'df -h'</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sshpass -p <span class="string">'host_pass'</span> scp -r root@host_ip:/home/<span class="built_in">test</span>/ ./tmp/</span></span><br></pre></td></tr></table></figure></p><p>首次连接需要加参数-o StrictHostKeyChecking=no, 否则return code是6 ：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sshpass -p <span class="string">'host_pass'</span> ssh  -o StrictHostKeyChecking=no  user@host_ip <span class="string">'df -h'</span></span></span><br></pre></td></tr></table></figure></p><p>2 . 使用环境变量保存密码<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">export</span> SSHPASS=<span class="string">'host_pass'</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sshpass -e ssh user@host_ip <span class="string">'df -h'</span></span></span><br></pre></td></tr></table></figure></p><p>3 . 使用文件保存密码<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sshpass -f password_filename ssh user@host_ip <span class="string">'df -h'</span></span></span><br></pre></td></tr></table></figure></p><h2 id="rysnc"><a href="#rysnc" class="headerlink" title="rysnc"></a>rysnc</h2><p>快速，增量的文件传输工具。支持本地和远程文件传输。</p><h4 id="rysnc为何传输速度快？"><a href="#rysnc为何传输速度快？" class="headerlink" title="rysnc为何传输速度快？"></a>rysnc为何传输速度快？</h4><blockquote><p>无论是本地或远程文件传输， rsync 首先创建每个源文件块校验的索引。此索引用于查找可能存在于目标中的任何相同数据块。一旦这种块存在，块就被就地使用，而不是从源复制。这大大加快了存在小差异的大文件的同步</p></blockquote><h2 id="scp-（可搭配expect）"><a href="#scp-（可搭配expect）" class="headerlink" title="scp （可搭配expect）"></a>scp （可搭配expect）</h2><h4 id="expect是一个用来处理交互的命令。"><a href="#expect是一个用来处理交互的命令。" class="headerlink" title="expect是一个用来处理交互的命令。"></a>expect是一个用来处理交互的命令。</h4><p>expect中四个常用命令是send,expect,spawn,interact。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">send：用于向进程发送字符串</span><br><span class="line">expect：从进程接收字符串</span><br><span class="line">spawn：启动新的进程</span><br><span class="line">interact：允许用户交互</span><br></pre></td></tr></table></figure></p><p>Example: 如下脚本autoscp.sh<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/expect</span></span><br><span class="line">set user [lindex $argv 0]</span><br><span class="line">set ip [lindex $argv 1]</span><br><span class="line">set passwd [lindex $argv 2]</span><br><span class="line">set srcfile [lindex $argv 3]</span><br><span class="line">set dstdir [lindex $argv 4]</span><br><span class="line"></span><br><span class="line">set timeout 20</span><br><span class="line">spawn scp $srcfile $user@$ip:$dstdir</span><br><span class="line">expect &#123;</span><br><span class="line">"yes/no)?" &#123; send "yes\r";puts "yes" &#125;</span><br><span class="line">"assword:" &#123; send "$passwd\r" &#125;</span><br><span class="line">timeout &#123; puts "$IP time out" ;exit 1 &#125;</span><br><span class="line">&#125;</span><br><span class="line">expect eof</span><br></pre></td></tr></table></figure></p><p>注意点：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1 . /usr/bin/expect就是 which expect 的路径</span><br><span class="line">2 . 脚本需要执行权限。 chmod +x autoscp.sh</span><br><span class="line">3 . 执行脚本是./autoscp.sh, 不是 sh autoscp.sh。否则会报一些命令not found。因为该脚本用的并不是bash,脚本第一行已经写明。</span><br><span class="line">4 . expect中执行命令是有一个timeout的设定的，默认超时时间为10s。</span><br><span class="line">若一条命令未timeout限定时间内执行完，就会中断该条命令的下一条命令。</span><br><span class="line">在expect脚本中设定timeout，可覆盖原本的timeout.</span><br></pre></td></tr></table></figure></p>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>胡思乱想</title>
+      <link href="/2017/07/04/think-and-write/"/>
+      <url>/2017/07/04/think-and-write/</url>
+      <content type="html"><![CDATA[<p>1 . 自动化测试<br>用门禁和测试用例去拦截开发版本里的bug，那么又如何保证门禁和测试用例代码正确呢？再写一个拦截门禁的门禁，测试用例的测试，写到什么程度合适？</p><p>2 . 自由软件</p><blockquote><p>斯托曼在GPL的序言中说：“当我们说自由软件这个词的时候，我们在说的是自由，而不是免费。”</p></blockquote><p>自由软件都是开源软件，但是开源软件不一定是自由软件。开源不一定免费，闭源也不一定就要收费。</p><p>3 . 代码依赖</p><blockquote><p>为了利用多核，Python开始支持多线程。而解决多线程之间数据完整性和状态同步的最简单方法自然就是加锁。于是有了GIL这把超级大锁，而当越来越多的代码库开发者接受了这种设定后，他们开始大量依赖这种特性（即默认python内部对象是thread-safe的，无需在实现时考虑额外的内存锁和同步操作）。<br>慢慢的这种实现方式被发现是蛋疼且低效的。但当大家试图去拆分和去除GIL的时候， 发现大量库代码开发者已经重度依赖GIL而非常难以去除了。</p></blockquote><blockquote><p>——原文链接<a href="http://cenalulu.github.io/python/gil-in-python/">http://cenalulu.github.io/python/gil-in-python/</a></p></blockquote><p>这个问题很有意思，最近代码也遇到一个问题，配置文件中有一部分整个代码处理流程都认为是一定会存在的，从没有考虑不存在的情况，但是现在有个服务可以不需要，删掉后就会有问题，同时修改代码成本比较高。</p><p>4 . 运维如何避免琐碎？</p><blockquote><p>基础架构的服务化平台开发，目标是平台自助化，让开发依赖平台的能力自助完成对基础组件的需求，而不是依赖运维的人。这个事情是驱动运维转型和改进的动力，也是运维能够深入了解架构组件细节的有效途径。同时，要注意到，<strong>如果不朝着服务化方向发展，运维将始终被拖累在这些基础组件的运维操作上</strong>。</p></blockquote><p>通过技术将人力从繁琐的工作中解放出来，否则这个团队技术很难快速成长。</p><p>5 . 监控和测试</p><blockquote><ul><li>机器监控<br>对于机器监控有很多开源的方案，一般来说主要采集机器的CPU，内存，TPS，JVM等指标，一旦某个指标跨过红线，及时做出报警。</li><li>业务监控<br>对于业务数据比较复杂，根据不同的业务有几十种不同的监控指标，主要采用的是日志打点的方式。生产环境的每台机器会有一个专门解析日志的agent，这些agent增量的实时监控业务日志，并将日志解析得到跟业务相关的数据，发送给监控系统，从而监控系统能得到某个点或者某个时间段内的业务情况，根据划定的业务指标红线给出报警。</li><li>功能监控<br>将相关系统的冒烟用例在线上7*24小时连续不断运行，来及时发现线上的问题，尽量在先于用户发现问题避免故障面的扩大。</li><li>页面监控<br>对不同系统的页面7*24小时访问，看这些页面是否能够正常访问，链接是否被修改。</li></ul></blockquote><p>监控是不是一种测试？测试是不是也是一种监控？</p>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Doc </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>CentOS7免密码远程登录ssh配置</title>
+      <link href="/2017/05/06/ssh-login/"/>
+      <url>/2017/05/06/ssh-login/</url>
+      <content type="html"><![CDATA[<h3 id="生成证书公私钥"><a href="#生成证书公私钥" class="headerlink" title="生成证书公私钥"></a>生成证书公私钥</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -P <span class="string">''</span></span><br></pre></td></tr></table></figure><p>默认在 ~/.ssh目录生成两个文件：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">id_rsa：私钥</span><br><span class="line">id_rsa.pub：公钥</span><br></pre></td></tr></table></figure></p><h3 id="将公钥复制到远程服务器"><a href="#将公钥复制到远程服务器" class="headerlink" title="将公钥复制到远程服务器"></a>将公钥复制到远程服务器</h3><h5 id="方式一："><a href="#方式一：" class="headerlink" title="方式一："></a>方式一：</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ scp ~/.ssh/id_rsa.pub xxx@host:/home/&#123;username&#125;/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ mv ~/.ssh/id_rsa.pub  ~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure><p>因为配置文件/etc/ssh/sshd_config里是.ssh/authorized_keys，所以要重命名。</p><p>注意权限设置很重要! .ssh目录权限应为700</p><h5 id="方式二："><a href="#方式二：" class="headerlink" title="方式二："></a>方式二：</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ssh-copy-id -i ~/.ssh/id_rsa.pub xxx@host</span><br></pre></td></tr></table></figure><p> ssh-copy-id命令可以把本地主机的公钥复制到远程主机的authorized_keys文件上，也会给远程主机的~/.ssh, 和~/.ssh/authorized_keys设置合适的权限。</p><h3 id="重启ssh服务"><a href="#重启ssh服务" class="headerlink" title="重启ssh服务"></a>重启ssh服务</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ systemctl restart sshd.service</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>DNF将取代YUM</title>
+      <link href="/2017/05/03/dnf-replace-yum/"/>
+      <url>/2017/05/03/dnf-replace-yum/</url>
+      <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">The reason of initiating DNF project was because of</span><br><span class="line">the biggest three pitfalls of Yum: undocumented API,</span><br><span class="line">broken dependency solving algorithm and inability to</span><br><span class="line">refactor internal functions. The last mentioned issue</span><br><span class="line">is connected with the lack of documentation. Yum plugins</span><br><span class="line">are using any method from Yum code base thus any change</span><br><span class="line">there would cause the sudden crash of the Yum utility.</span><br><span class="line">The DNF aim was to avoid mistakes made in Yum. From the</span><br><span class="line">start all exposed API functions were properly documented.</span><br><span class="line">The tests were included with almost every new commit. No quick</span><br><span class="line">and dirty hacks are allowed. The project is directed by agile</span><br><span class="line">development – the features that have the greatest impact</span><br><span class="line">on users are operatively implemented with higher priority.</span><br></pre></td></tr></table></figure><p><a href="http://dnf.baseurl.org/2015/05/11/yum-is-dead-long-live-dnf/">原文链接</a></p><p>这篇文章中写道，DNF取代YUM三个重要原因有一个是“undocumented API”, 想不到API 文档这么重要。</p>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>修改yum源和pip源为国内镜像源</title>
+      <link href="/2017/02/27/change-yum-and-pip/"/>
+      <url>/2017/02/27/change-yum-and-pip/</url>
+      <content type="html"><![CDATA[<h2 id="yum源修改"><a href="#yum源修改" class="headerlink" title="yum源修改"></a>yum源修改</h2><h4 id="1-备份"><a href="#1-备份" class="headerlink" title="1.备份"></a>1.备份</h4><p>首先要备份yum源，如果出现未知的错误，方便快速恢复。</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br></pre></td></tr></table></figure><h4 id="2-下载国内镜像源"><a href="#2-下载国内镜像源" class="headerlink" title="2.下载国内镜像源"></a>2.下载国内镜像源</h4><p>以163源为例，也可以是其他国内镜像源，如阿里云等。</p><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> /etc/yum.repos.d/</span><br><span class="line">$ wget http://mirrors.163.com/.<span class="built_in">help</span>/CentOS7-Base-163.repo</span><br><span class="line">$ mv CentOS7-Base-163.repo CentOS-Base.repo</span><br></pre></td></tr></table></figure><h4 id="3-生成缓存"><a href="#3-生成缓存" class="headerlink" title="3.生成缓存"></a>3.生成缓存</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ yum clean all</span><br><span class="line">$ yum makecache</span><br></pre></td></tr></table></figure><h2 id="pip源修改"><a href="#pip源修改" class="headerlink" title="pip源修改"></a>pip源修改</h2><h4 id="1-在主目录下创建-pip文件夹"><a href="#1-在主目录下创建-pip文件夹" class="headerlink" title="1.在主目录下创建.pip文件夹"></a>1.在主目录下创建.pip文件夹</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ mkdir ~/.pip</span><br></pre></td></tr></table></figure><h4 id="2-在-pip目录下创建pip-conf文件，添加如下内容"><a href="#2-在-pip目录下创建pip-conf文件，添加如下内容" class="headerlink" title="2.在.pip目录下创建pip.conf文件，添加如下内容"></a>2.在.pip目录下创建pip.conf文件，添加如下内容</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[global]</span><br><span class="line">trusted-host =  pypi.douban.com</span><br><span class="line">index-url = http://pypi.douban.com/simple</span><br></pre></td></tr></table></figure><p>这里是以豆瓣pip源为例，由于最新的pip安装需要使用的https加密，所以在此需要添加trusted-host 。</p>]]></content>
+      
+      
+        <tags>
+            
+            <tag> Linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+  
+  
+</search>
