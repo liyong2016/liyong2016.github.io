@@ -184,7 +184,7 @@
 <li>printf 不像 echo 那样会自动换行，必须显式添加换行符(\n)。</li>
 <li>printf 由 POSIX 标准所定义，移植性要比 echo 好。</li>
 </ul>
-<h2 id="fork-source-exec"><a href="#fork-source-exec" class="headerlink" title="fork, source, exec"></a>fork, source, exec</h2><p>fork: 当前执行的脚本程序，是在父进程 (当前shell) 产生的一个子进程 (sub-shell)中执行的, 子进程在结束后，将返回到父进程去。</p>
+<h2 id="fork-source-exec的区别"><a href="#fork-source-exec的区别" class="headerlink" title="fork, source, exec的区别"></a>fork, source, exec的区别</h2><p>fork: 当前执行的脚本程序，是在父进程 (当前shell) 产生的一个子进程 (sub-shell)中执行的, 子进程在结束后，将返回到父进程去。</p>
 <p>source: 是让当前脚本在当前 shell 执行， 而不是产生一个 sub-shell 来执行。 由于所有执行结果均在当前 shell 内执行、而不是产生一个 sub-shell 来执行。</p>
 <p>exec:  与fork不同，不需要新开一个 sub-shell 来执行当前脚本， 而是在当前 shell 内执行（这一点和source相同）。但是使用exec 调用一个新脚本以后, 父脚本中 exec 行之后的内容就不会再执行了（这一点和source和fork都不同）。</p>
 
