@@ -4,13 +4,17 @@
 
     
   <url>
-    <loc>http://liyong.science/2018/04/22/python-setup/</loc>
-    <lastmod>2018-05-10T14:33:09.242Z</lastmod>
+    <loc>http://liyong.science/2018/01/27/shell-script/</loc>
+    <lastmod>2018-06-04T15:26:59.088Z</lastmod>
     <data>
         <display>
-        <title>Python 打包学习</title>
-        <pubTime>2018-04-21T17:40:38.000Z</pubTime>
+        <title>Shell脚本学习</title>
+        <pubTime>2018-01-27T12:16:08.000Z</pubTime>
         
+        <tag>Linux</tag>
+         
+        <tag>Shell</tag>
+         
          
            
         </display>
@@ -20,7 +24,7 @@
     
   <url>
     <loc>http://liyong.science/2017/07/30/learning-materials/</loc>
-    <lastmod>2018-03-15T15:11:43.514Z</lastmod>
+    <lastmod>2018-06-04T15:22:28.300Z</lastmod>
     <data>
         <display>
         <title>学习资料归档</title>
@@ -28,6 +32,21 @@
         
         <tag>Doc</tag>
          
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://liyong.science/2018/04/22/python-setup/</loc>
+    <lastmod>2018-06-04T15:21:24.135Z</lastmod>
+    <data>
+        <display>
+        <title>Python 打包学习</title>
+        <pubTime>2018-04-21T17:40:38.000Z</pubTime>
+        
          
            
         </display>
@@ -147,25 +166,6 @@
         <pubTime>2017-05-06T07:26:28.000Z</pubTime>
         
         <tag>Linux</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://liyong.science/2018/01/27/shell-script/</loc>
-    <lastmod>2018-03-10T07:36:37.431Z</lastmod>
-    <data>
-        <display>
-        <title>Shell脚本学习</title>
-        <pubTime>2018-01-27T12:16:08.000Z</pubTime>
-        
-        <tag>Linux</tag>
-         
-        <tag>Shell</tag>
          
          
            

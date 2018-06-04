@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://liyong.science/2018/04/22/python-setup/</loc>
+    <loc>http://liyong.science/2018/01/27/shell-script/</loc>
     
-    <lastmod>2018-05-10T14:33:09.242Z</lastmod>
+    <lastmod>2018-06-04T15:26:59.088Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://liyong.science/2017/07/30/learning-materials/</loc>
     
-    <lastmod>2018-03-15T15:11:43.514Z</lastmod>
+    <lastmod>2018-06-04T15:22:28.300Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liyong.science/2018/04/22/python-setup/</loc>
+    
+    <lastmod>2018-06-04T15:21:24.135Z</lastmod>
     
   </url>
   
@@ -68,13 +75,6 @@
     <loc>http://liyong.science/2017/05/06/ssh-login/</loc>
     
     <lastmod>2018-03-10T07:36:43.447Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liyong.science/2018/01/27/shell-script/</loc>
-    
-    <lastmod>2018-03-10T07:36:37.431Z</lastmod>
     
   </url>
   
