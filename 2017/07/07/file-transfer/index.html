@@ -2,7 +2,7 @@
 <head>
 	
 	<title>文件传输工具(Linux)</title>
-	<meta name="keywords" content="My Blog" />
+	<meta name="keywords" content="fzb.me,冯宗宝,冯宗宝的blog" />
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -44,6 +44,7 @@
 --->
 </div>
 
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#sshpass"><span class="toc-text">sshpass</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用方法（3种）"><span class="toc-text">使用方法（3种）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#rysnc"><span class="toc-text">rysnc</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#rysnc为何传输速度快？"><span class="toc-text">rysnc为何传输速度快？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#scp-（可搭配expect）"><span class="toc-text">scp （可搭配expect）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#expect是一个用来处理交互的命令。"><span class="toc-text">expect是一个用来处理交互的命令。</span></a></li></ol></li></ol></li></ol>
 <h2 id="sshpass"><a href="#sshpass" class="headerlink" title="sshpass"></a>sshpass</h2><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> yum install sshpass</span></span><br></pre></td></tr></table></figure>
 <h4 id="使用方法（3种）"><a href="#使用方法（3种）" class="headerlink" title="使用方法（3种）"></a>使用方法（3种）</h4><p>1 . 直接用密码<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sshpass -p <span class="string">'host_pass'</span> ssh user@host_ip <span class="string">'df -h'</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> sshpass -p <span class="string">'host_pass'</span> scp -r root@host_ip:/home/<span class="built_in">test</span>/ ./tmp/</span></span><br></pre></td></tr></table></figure></p>
 <p>首次连接需要加参数-o StrictHostKeyChecking=no, 否则return code是6 ：<br><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> sshpass -p <span class="string">'host_pass'</span> ssh  -o StrictHostKeyChecking=no  user@host_ip <span class="string">'df -h'</span></span></span><br></pre></td></tr></table></figure></p>
@@ -62,7 +63,7 @@
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'undefined'; // required: replace example with your forum shortname
+    var disqus_shortname = 'liyong-science'; // required: replace example with your forum shortname
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {

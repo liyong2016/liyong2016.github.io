@@ -2,7 +2,7 @@
 <head>
 	
 	<title>Python 打包学习</title>
-	<meta name="keywords" content="My Blog" />
+	<meta name="keywords" content="fzb.me,冯宗宝,冯宗宝的blog" />
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -44,6 +44,7 @@
 --->
 </div>
 
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#两种打包方式"><span class="toc-text">两种打包方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#纯setuptools打包"><span class="toc-text">纯setuptools打包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用setuptools最小的setup-py配置："><span class="toc-text">使用setuptools最小的setup.py配置：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setup-py的setup函数的常用参数："><span class="toc-text">setup.py的setup函数的常用参数：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常用的setuptools打包命令有："><span class="toc-text">常用的setuptools打包命令有：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-pbr-打包"><span class="toc-text">使用 pbr 打包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pbr打包配置"><span class="toc-text">pbr打包配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pbr-打包版本号（version）"><span class="toc-text">pbr 打包版本号（version）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注意："><span class="toc-text">注意：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建tag如何使用GPG签名"><span class="toc-text">创建tag如何使用GPG签名</span></a></li></ol></li></ol></li></ol>
 <p>Python的软件包一开始是没有官方的标准分发格式的。 后来不同的工具都开始引入一些比较通用的归档格式。比如，setuptools引入了Egg格式。 但是，这些都不是官方支持的，存在元数据和包结构彼此不兼容的问题。因此，为了解决这个问题， PEP 427定义了新的分发包标准，名为Wheel。目前pip和setuptools工具都支持Wheel格式。</p>
 <h1 id="两种打包方式"><a href="#两种打包方式" class="headerlink" title="两种打包方式"></a>两种打包方式</h1><h2 id="纯setuptools打包"><a href="#纯setuptools打包" class="headerlink" title="纯setuptools打包"></a><a href="https://setuptools.readthedocs.io/en/latest/setuptools.html">纯setuptools打包</a></h2><ul>
 <li>setuptools 是Python distutils增强版的集合，它可以帮助我们更简单的创建和分发Python包，特别是对其他包有依赖关系时。</li>
@@ -142,7 +143,7 @@
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'undefined'; // required: replace example with your forum shortname
+    var disqus_shortname = 'liyong-science'; // required: replace example with your forum shortname
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {
