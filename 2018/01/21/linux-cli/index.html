@@ -44,31 +44,27 @@
 --->
 </div>
 
-
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#查看系统信息（系统内核名，主机名，内核版本，内核发布号等）"><span class="toc-text">查看系统信息（系统内核名，主机名，内核版本，内核发布号等）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看硬件信息"><span class="toc-text">查看硬件信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看块设备（硬盘，闪存驱动器）信息"><span class="toc-text">查看块设备（硬盘，闪存驱动器）信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看-CPU-信息"><span class="toc-text">查看 CPU 信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看文件系统信息"><span class="toc-text">查看文件系统信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看-Linux-下最大文件描述符限制"><span class="toc-text">查看 Linux 下最大文件描述符限制</span></a></li></ol>
 <p>本文档主要记录一些 Linux 的命令，不一定常用，只是方便个人查询。</p>
-<ul>
-<li><p>查看系统信息（系统内核名，主机名，内核版本，内核发布号等）</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">uname -a</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看硬件信息</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lshw</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
+<h2 id="查看系统信息（系统内核名，主机名，内核版本，内核发布号等）"><a href="#查看系统信息（系统内核名，主机名，内核版本，内核发布号等）" class="headerlink" title="查看系统信息（系统内核名，主机名，内核版本，内核发布号等）"></a>查看系统信息（系统内核名，主机名，内核版本，内核发布号等）</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">uname -a</span><br></pre></td></tr></table></figure>
+<h2 id="查看硬件信息"><a href="#查看硬件信息" class="headerlink" title="查看硬件信息"></a>查看硬件信息</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lshw</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>若命令不存在，CentOS安装方法“ yum install lshw ”</p>
 </blockquote>
-<ul>
-<li><p>查看块设备（硬盘，闪存驱动器）信息</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lsblk</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看 CPU 信息</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lscpu</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看文件系统信息</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">fdisk -l</span><br></pre></td></tr></table></figure>
-</li>
+<h2 id="查看块设备（硬盘，闪存驱动器）信息"><a href="#查看块设备（硬盘，闪存驱动器）信息" class="headerlink" title="查看块设备（硬盘，闪存驱动器）信息"></a>查看块设备（硬盘，闪存驱动器）信息</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lsblk</span><br></pre></td></tr></table></figure>
+<h2 id="查看-CPU-信息"><a href="#查看-CPU-信息" class="headerlink" title="查看 CPU 信息"></a>查看 CPU 信息</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">lscpu</span><br></pre></td></tr></table></figure>
+<h2 id="查看文件系统信息"><a href="#查看文件系统信息" class="headerlink" title="查看文件系统信息"></a>查看文件系统信息</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">fdisk -l</span><br></pre></td></tr></table></figure>
+<h2 id="查看-Linux-下最大文件描述符限制"><a href="#查看-Linux-下最大文件描述符限制" class="headerlink" title="查看 Linux 下最大文件描述符限制"></a>查看 Linux 下最大文件描述符限制</h2><ul>
+<li>系统级限制</li>
 </ul>
-
+<p>sysctl命令和proc文件系统中查看到的数值是一样的，它是限制所有用户打开文件描述符的总和</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sysctl -a | grep -i file-max --color</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cat /proc/sys/fs/file-max</span><br></pre></td></tr></table></figure>
+<ul>
+<li>进程级限制</li>
+</ul>
+<p>内核为了不让某一个进程消耗掉所有的文件资源，其也会对单个进程最大打开文件数做默认值处理，默认值一般是1024</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">ulimit -n</span><br></pre></td></tr></table></figure>
 
 <!--<a href="http://liyong.science/2018/01/21/linux-cli/#disqus_thread" class="article-comment-link">Comments</a>
 <div id="disqus_thread"></div>
