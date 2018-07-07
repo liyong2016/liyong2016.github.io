@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://liyong.science/2017/07/07/file-transfer/</loc>
+    
+    <lastmod>2018-07-07T16:01:48.226Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://liyong.science/2018/01/21/linux-cli/</loc>
     
     <lastmod>2018-06-24T05:33:54.359Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://liyong.science/2018/06/18/DevOps/</loc>
     
     <lastmod>2018-06-18T08:43:32.707Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liyong.science/2017/07/07/file-transfer/</loc>
-    
-    <lastmod>2018-06-18T03:21:15.304Z</lastmod>
     
   </url>
   
