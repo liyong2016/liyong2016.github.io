@@ -44,7 +44,7 @@
 --->
 </div>
 
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基础篇"><span class="toc-text">基础篇</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第1章-软件交付的问题"><span class="toc-text">第1章 软件交付的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第2章-配置管理"><span class="toc-text">第2章 配置管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第3章-持续集成"><span class="toc-text">第3章 持续集成</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#部署流水线"><span class="toc-text">部署流水线</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第5章-部署流水线解析"><span class="toc-text">第5章  部署流水线解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第6章-构建于部署的脚本化"><span class="toc-text">第6章 构建于部署的脚本化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#交付生态圈"><span class="toc-text">交付生态圈</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基础篇"><span class="toc-text">基础篇</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第1章-软件交付的问题"><span class="toc-text">第1章 软件交付的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第2章-配置管理"><span class="toc-text">第2章 配置管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第3章-持续集成"><span class="toc-text">第3章 持续集成</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#部署流水线"><span class="toc-text">部署流水线</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第5章-部署流水线解析"><span class="toc-text">第5章  部署流水线解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第6章-构建于部署的脚本化"><span class="toc-text">第6章 构建于部署的脚本化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第7章-提交阶段"><span class="toc-text">第7章 提交阶段</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#交付生态圈"><span class="toc-text">交付生态圈</span></a></li></ol>
 <p><a href="https://book.douban.com/subject/6862062/">豆瓣链接</a></p>
 <p>本文主要是对阅读书籍我认为重要的内容进行概要记录。</p>
 <h1 id="基础篇"><a href="#基础篇" class="headerlink" title="基础篇"></a>基础篇</h1><h2 id="第1章-软件交付的问题"><a href="#第1章-软件交付的问题" class="headerlink" title="第1章 软件交付的问题"></a>第1章 软件交付的问题</h2><p>1.6 软件交付原则</p>
@@ -137,6 +137,71 @@
 </ul>
 <p>6.5 部署脚本化</p>
 <p>环境管理的核心原则之一就是：对测试生产环境的修改只能由自动化过程执行。也就是说，我们不应该手工远程登陆到这些环境上执行部署工作，而应该将其完全脚本化。</p>
+<h2 id="第7章-提交阶段"><a href="#第7章-提交阶段" class="headerlink" title="第7章 提交阶段"></a>第7章 提交阶段</h2><p>编译，单元测试，编译打包，静态检查</p>
+<p>7.2 提交阶段的原则和实践</p>
+<ul>
+<li>提供快速有用的反馈</li>
+<li>让开发人员也拥有所有权</li>
+<li>在超大项目团队中指定一个构建负责人<blockquote>
+<p>构建负责人不应该是由固定的人担任。团队成员应该轮流担当。</p>
+</blockquote>
+</li>
+</ul>
+<p>7.3 提交阶段的结果<br>提交阶段既有输入，也有输出。输入是源代码，输出是二进制包和报告。</p>
+<ul>
+<li>制品库<blockquote>
+<p>最容易想到的地方就是版本控制库，但它却不是一个正确的选择，因为这回让你的磁盘空间很快被吃掉，而且有些版本控制系统对二进制文件支持不佳。</p>
+</blockquote>
+</li>
+</ul>
+<p>制品库是一个不同寻常的版本控制系统，它仅保存某些版本，而不是全部。能够追溯已发布的软件究竟是版本控制库的哪个版本产生的。二进制文件的创建过程是可重复的。</p>
+<p>7.4 提交测试套件的原则与实践</p>
+<ul>
+<li>绝大部分测试由单元测试组成。</li>
+<li>避免用户界面测试</li>
+<li>使用依赖注入</li>
+<li>避免使用数据库</li>
+<li>在单元测试中避免异步</li>
+<li>使用测试替身<blockquote>
+<p>打桩是指利用模拟代码来代替原系统中的某个部分，并提供已封装好的响应。</p>
+</blockquote>
+</li>
+<li>最小化测试中的状态<blockquote>
+<p>很容易落入一个陷阱，即为了支撑测试，精心地建立起一堆难以理解和维护的数据结构。理想的测试应该能很容易和快速地进行测试准备，而清理工作也应该更快、更容易。对于结构良好的代码来说，其测试代码往往也非常整洁有序。如果测试看起来繁琐复杂，那可能是系统设计有问题。当然这是一个很难定性的问题。</p>
+</blockquote>
+</li>
+</ul>
+<p>第8章 自动化验收测试</p>
+<p>对于一个单独的验收测试，它的目的是验证一个用户故事或需求的验收条件是否被满足。验收条件有多种类型，如功能性验收条件和非功能性验收条件。非功能性验收条件包括容量，性能，可用性，安全性，易用性等等。</p>
+<p>与单元测试的区别：</p>
+<p>验收测试是针对业务的，单元测试是针对开发的。验收测试的目标是要证明应用程序的确实现了客户想要的，而不是开发人员所认为的正确方式来运行的。</p>
+<p>第10章 应用程序的部署与发布</p>
+<p>10.4 部署回滚和零停机发布</p>
+<p>两个重要的约束。首先是数据，如果发布流程会修改数据，回滚操作就比价困难。另一个是需要与其他系统集成，如果发布中涉及两个以上的系统，回滚流程也会比较复杂。</p>
+<p>10.4.1 通过重新部署原有的正常版本来进行回滚</p>
+<p>10.4.2 零停机发布 (也称为热部署)</p>
+<p>10.4.3 蓝绿部署</p>
+<p>10.4.4 金丝雀发布</p>
+<p>好处：</p>
+<ul>
+<li>非常容易回滚。只要不把用户引导这个有问题的版本就行了，此时就可以来分析日志，查找问题。</li>
+<li>可以做A/B测试。某些公司会度量新特性额使用率，如果用的人不多，就会废弃它。（A/B测试也可以通过特性开关方式实现）</li>
+<li>可以通过逐渐增加负载，慢慢地把更多的用户引到新版本，记录并衡量应用程序的响应时间、CPU使用率， I/O、内存使用率以及日志中是否有异常报告这种方式，来检查一下应用程序是否满足容量需求。</li>
+</ul>
+<p>10.7 小贴士和窍门</p>
+<ul>
+<li>真正执行部署操作的人应该参与部署过程的创建</li>
+<li>记录部署活动</li>
+<li>不要删除旧文件，而是移动到别的位置</li>
+<li>部署是整个团队的责任<blockquote>
+<p>团队每个成员都应该知道如何部署，如何维护部署脚本。</p>
+</blockquote>
+</li>
+<li>不要直接对生产环境进行修改<blockquote>
+<p>生产环境应该是完全锁定的，这样只有部署流水线可以对其进行改变，包括从环境配置信息到部署在其中的应用程序和相关数据.</p>
+</blockquote>
+</li>
+</ul>
 <h1 id="交付生态圈"><a href="#交付生态圈" class="headerlink" title="交付生态圈"></a>交付生态圈</h1>
 
 <!--<a href="http://liyong.science/2018/02/04/continuous-delivery-notes/#disqus_thread" class="article-comment-link">Comments</a>
