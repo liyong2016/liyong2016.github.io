@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://liyong.science/about/index.html</loc>
+    
+    <lastmod>2018-11-26T14:03:42.898Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://liyong.science/2018/02/04/continuous-delivery-notes/</loc>
     
     <lastmod>2018-10-05T17:37:56.865Z</lastmod>
@@ -117,13 +124,6 @@
     <loc>http://liyong.science/2018/01/20/acl/</loc>
     
     <lastmod>2018-03-10T07:32:44.163Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liyong.science/about/index.html</loc>
-    
-    <lastmod>2018-02-25T05:13:34.119Z</lastmod>
     
   </url>
   
