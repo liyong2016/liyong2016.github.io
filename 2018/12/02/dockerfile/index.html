@@ -1,0 +1,94 @@
+<html>
+<head>
+	
+	<title>Dockerfile 学习</title>
+	<meta name="keywords" content="My Blog" />
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    
+	   <link href="/css/main.css?v=3" rel="stylesheet" type="text/css" />
+    
+        <script src="/js/util.js"></script>
+        <script>
+            if(isMobile()) {
+                loadjscssfile('../css/mobile.css', 'css');
+            } else {
+                loadjscssfile('../css/desktop.css', 'css');
+            }
+        </script> 
+    
+
+    <link rel="alternate" type="application/atom+xml" href="/atom.xml" title="Atom feed">
+
+    
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=3"/>
+    
+
+</head>
+
+<body>
+
+
+<h2 class="title">Dockerfile 学习</h2>
+<!---
+<div style="text-align:center;margin-top: -10px;">
+<div class="article-category">
+发表于2018年12月2日
+
+
+
+
+ </div>
+--->
+</div>
+
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#镜像构建"><span class="toc-text">镜像构建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#构建前需要"><span class="toc-text">构建前需要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构建命令"><span class="toc-text">构建命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构建流程"><span class="toc-text">构建流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意点"><span class="toc-text">注意点</span></a></li></ol></li></ol>
+<h1 id="镜像构建"><a href="#镜像构建" class="headerlink" title="镜像构建"></a>镜像构建</h1><h2 id="构建前需要"><a href="#构建前需要" class="headerlink" title="构建前需要"></a>构建前需要</h2><ul>
+<li>Dockerfile文件</li>
+<li>构建所需的上下文（context）：可以是本地路径或者 Git仓库 URL</li>
+</ul>
+<h2 id="构建命令"><a href="#构建命令" class="headerlink" title="构建命令"></a>构建命令</h2><p>一般开发使用下面命令即可，更多参数可参考官方文档或docker build –help查看</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker build -t &#123;name:tag&#125; .</span><br></pre></td></tr></table></figure>
+<h2 id="构建流程"><a href="#构建流程" class="headerlink" title="构建流程"></a>构建流程</h2><ol>
+<li>把当前目录及子目录（递归，如果是 Git 仓库会会包含submodules）当做上下文传递给 Docker daemon。注意不是在 Docker Client 构建镜像。可以使用 .dockerignore 忽略掉一些构建不需要的文件。</li>
+<li>默认从上下文的当前目录(不包括子目录)中找 Dockerfile 文件。当然也可以使用 -f 指定 Dockerfile 的路径，文件名也可以不叫 Dockerfile。</li>
+<li>检查 Dockerfile 的语法</li>
+<li>依次执行 Dockerfile 中的指令，根据指令生成中间过度镜像(存储在本地，为之后的指令或构建作缓存)</li>
+</ol>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><ul>
+<li>构建命令后面的 . 不是 Dockerfile 的路径，而是上下文的路径。当然如果不显示指定 Dockerfile 的路径，默认 Dockerfile 也应该在该路径下。</li>
+<li>-f 可以指定 Dockerfile 的路径，但是 Docker 18.03 之前的版本指定的 Dockerfile 需要在上下文目录或子目录下，在 Docker 18.03 之后可以指定 Dockerfile 路径在上下文目录外。（<a href="https://github.com/docker/cli/pull/886）">https://github.com/docker/cli/pull/886）</a></li>
+<li>缓存：从缓存中存在的基础镜像开始，比较所有子镜像，检查它们构建的指令是否和当前的完全一致。如果不一致则缓存不匹配，重新构建镜像。Dockerfile 中每一个指令都会创建一个镜像层，上层是依赖于下层的。无论什么时候，只要某一层发生变化，其上面所有层的缓存都会失效。也就是说，如果我们改变 Dockerfile 指令的执行顺序，都会使缓存失效。所以书写 Dockerfile 时，应该将静态的安装、配置命令尽可能地放在 Dockerfile 的较前位置。</li>
+<li>ADD 和 COPY 除了比较指令是否相同以外，Docker还会检查每个文件内容校验和是否一致。</li>
+<li>除了ADD和COPY之外，Docker 缓存检查并不会检查文件内容是否匹配，如 RUN yum update -y 可能会一直使用缓存镜像，不会更新使用最新的软件版本。如果希望不使用缓存，可以使用参数–no-cache 重新生成镜像。</li>
+</ul>
+
+
+<!--<a href="http://liyong.science/2018/12/02/dockerfile/#disqus_thread" class="article-comment-link">Comments</a>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'undefined'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+-->
+<div style="display:none">
+<script src="http://s4.cnzz.com/stat.php?id=undefined&web_id=undefined" language="JavaScript"></script>script>
+</div>
+
+
+
+
+
+
+</body>
+</html>
