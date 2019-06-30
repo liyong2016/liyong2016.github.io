@@ -4,60 +4,8 @@
 
     
   <url>
-    <loc>http://liyong.science/2018/12/01/maven/</loc>
-    <lastmod>2018-12-02T08:47:30.613Z</lastmod>
-    <data>
-        <display>
-        <title>Maven 学习小记</title>
-        <pubTime>2018-12-01T15:49:27.000Z</pubTime>
-        
-        <tag>Maven</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://liyong.science/2018/12/02/dockerfile/</loc>
-    <lastmod>2018-12-02T08:47:19.445Z</lastmod>
-    <data>
-        <display>
-        <title>Dockerfile 学习小记</title>
-        <pubTime>2018-12-01T17:07:18.000Z</pubTime>
-        
-        <tag>Docker</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-    
-  <url>
-    <loc>http://liyong.science/2018/02/04/continuous-delivery-notes/</loc>
-    <lastmod>2018-10-05T17:37:56.865Z</lastmod>
-    <data>
-        <display>
-        <title>持续交付：发布可靠软件的系统方法—-读书笔记</title>
-        <pubTime>2018-02-04T04:45:46.000Z</pubTime>
-        
-        <tag>CICD</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://liyong.science/2018/01/27/shell-script/</loc>
-    <lastmod>2018-08-19T06:31:05.140Z</lastmod>
+    <loc>http://liyong.science/2018/shell-script/</loc>
+    <lastmod>2019-06-30T09:21:49.027Z</lastmod>
     <data>
         <display>
         <title>Shell学习</title>
@@ -75,7 +23,76 @@
 
     
   <url>
-    <loc>http://liyong.science/2018/07/19/python-bool/</loc>
+    <loc>http://liyong.science/2019/ansible/</loc>
+    <lastmod>2019-06-30T08:37:20.347Z</lastmod>
+    <data>
+        <display>
+        <title>Ansible 学习小记</title>
+        <pubTime>2019-06-30T08:31:39.000Z</pubTime>
+        
+        <tag>Ansible</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://liyong.science/2018/maven/</loc>
+    <lastmod>2018-12-02T08:47:30.613Z</lastmod>
+    <data>
+        <display>
+        <title>Maven 学习小记</title>
+        <pubTime>2018-12-01T15:49:27.000Z</pubTime>
+        
+        <tag>Maven</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://liyong.science/2018/dockerfile/</loc>
+    <lastmod>2018-12-02T08:47:19.445Z</lastmod>
+    <data>
+        <display>
+        <title>Dockerfile 学习小记</title>
+        <pubTime>2018-12-01T17:07:18.000Z</pubTime>
+        
+        <tag>Docker</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
+    <loc>http://liyong.science/2018/continuous-delivery-notes/</loc>
+    <lastmod>2018-10-05T17:37:56.865Z</lastmod>
+    <data>
+        <display>
+        <title>持续交付：发布可靠软件的系统方法—-读书笔记</title>
+        <pubTime>2018-02-04T04:45:46.000Z</pubTime>
+        
+        <tag>CICD</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://liyong.science/2018/python-bool/</loc>
     <lastmod>2018-07-19T15:40:23.718Z</lastmod>
     <data>
         <display>
@@ -92,7 +109,7 @@
 
     
   <url>
-    <loc>http://liyong.science/2017/07/07/file-transfer/</loc>
+    <loc>http://liyong.science/2017/file-transfer/</loc>
     <lastmod>2018-07-07T16:01:48.226Z</lastmod>
     <data>
         <display>
@@ -109,7 +126,7 @@
 
     
   <url>
-    <loc>http://liyong.science/2018/01/21/linux-cli/</loc>
+    <loc>http://liyong.science/2018/linux-cli/</loc>
     <lastmod>2018-06-24T05:33:54.359Z</lastmod>
     <data>
         <display>
@@ -126,7 +143,7 @@
 
     
   <url>
-    <loc>http://liyong.science/2018/06/18/DevOps/</loc>
+    <loc>http://liyong.science/2018/DevOps/</loc>
     <lastmod>2018-06-18T08:43:32.707Z</lastmod>
     <data>
         <display>
@@ -143,7 +160,7 @@
 
     
   <url>
-    <loc>http://liyong.science/2017/07/04/think-and-write/</loc>
+    <loc>http://liyong.science/2017/think-and-write/</loc>
     <lastmod>2018-06-18T03:17:47.671Z</lastmod>
     <data>
         <display>
@@ -160,7 +177,7 @@
 
     
   <url>
-    <loc>http://liyong.science/2018/06/16/gitignore/</loc>
+    <loc>http://liyong.science/2018/gitignore/</loc>
     <lastmod>2018-06-18T02:37:25.177Z</lastmod>
     <data>
         <display>
@@ -177,7 +194,7 @@
 
     
   <url>
-    <loc>http://liyong.science/2017/07/30/learning-materials/</loc>
+    <loc>http://liyong.science/2017/learning-materials/</loc>
     <lastmod>2018-06-18T02:34:53.902Z</lastmod>
     <data>
         <display>
@@ -194,7 +211,7 @@
 
     
   <url>
-    <loc>http://liyong.science/2018/04/22/python-setup/</loc>
+    <loc>http://liyong.science/2018/python-setup/</loc>
     <lastmod>2018-06-04T15:21:24.135Z</lastmod>
     <data>
         <display>
@@ -210,7 +227,7 @@
     
     
   <url>
-    <loc>http://liyong.science/2017/10/23/sudo/</loc>
+    <loc>http://liyong.science/2017/sudo/</loc>
     <lastmod>2018-03-10T07:36:50.838Z</lastmod>
     <data>
         <display>
@@ -227,7 +244,7 @@
 
     
   <url>
-    <loc>http://liyong.science/2017/05/06/ssh-login/</loc>
+    <loc>http://liyong.science/2017/ssh-login/</loc>
     <lastmod>2018-03-10T07:36:43.447Z</lastmod>
     <data>
         <display>
@@ -244,7 +261,7 @@
 
     
   <url>
-    <loc>http://liyong.science/2017/11/08/Python-http/</loc>
+    <loc>http://liyong.science/2017/Python-http/</loc>
     <lastmod>2018-03-10T07:36:25.743Z</lastmod>
     <data>
         <display>
@@ -261,7 +278,7 @@
 
     
   <url>
-    <loc>http://liyong.science/2017/02/27/change-yum-and-pip/</loc>
+    <loc>http://liyong.science/2017/change-yum-and-pip/</loc>
     <lastmod>2018-03-10T07:35:37.306Z</lastmod>
     <data>
         <display>
@@ -278,7 +295,7 @@
 
     
   <url>
-    <loc>http://liyong.science/2017/10/23/change-virtualbox/</loc>
+    <loc>http://liyong.science/2017/change-virtualbox/</loc>
     <lastmod>2018-03-10T07:35:27.659Z</lastmod>
     <data>
         <display>
@@ -295,7 +312,7 @@
 
     
   <url>
-    <loc>http://liyong.science/2018/01/20/acl/</loc>
+    <loc>http://liyong.science/2018/acl/</loc>
     <lastmod>2018-03-10T07:32:44.163Z</lastmod>
     <data>
         <display>
