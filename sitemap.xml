@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://liyong.science/2018/DevOps/</loc>
+    
+    <lastmod>2019-06-30T09:32:19.108Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://liyong.science/2018/shell-script/</loc>
     
     <lastmod>2019-06-30T09:21:49.027Z</lastmod>
@@ -61,13 +68,6 @@
     <loc>http://liyong.science/2018/linux-cli/</loc>
     
     <lastmod>2018-06-24T05:33:54.359Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liyong.science/2018/DevOps/</loc>
-    
-    <lastmod>2018-06-18T08:43:32.707Z</lastmod>
     
   </url>
   

@@ -50,7 +50,7 @@
 </ol>
 <h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><h3 id="算数运算符"><a href="#算数运算符" class="headerlink" title="算数运算符"></a>算数运算符</h3><p>原生 bash 不支持简单的数学运算，但是可以通过其他命令来实现，例如 awk 和 expr，expr 最常用。</p>
 <p>例如：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line"></span><br><span class="line">val=`expr 2 + 2`</span><br><span class="line">echo "Total value : $val"</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line">val=`expr 2 + 2`</span><br><span class="line">echo "Total value : $val"</span><br></pre></td></tr></table></figure>
 <ol>
 <li>表达式和运算符之间要有空格，例如 2+2 是不对的，必须写成 2 + 2 。</li>
 <li>完整的表达式要被 包含，注意这个字符不是常用的单引号，在 Esc 键下边。</li>
@@ -102,7 +102,7 @@
 <h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>在 Shell 中，用括号来表示数组，数组元素用“空格”符号分割开。定义数组的一般形式为：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">array_name=(value1 ... valuen)</span><br></pre></td></tr></table></figure>
 <p>读取数组元素值的一般格式是：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span>&#123;array_name[index]&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">&#123;array_name[index]&#125;</span></span><br></pre></td></tr></table></figure>
 <h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>Shell 函数的定义格式:</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">function function_name () &#123;</span><br><span class="line">    list of commands</span><br><span class="line">    [ return value ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol>
