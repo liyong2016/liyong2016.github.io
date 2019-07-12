@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>http://liyong.science/2017/ssh-login/</loc>
+    <lastmod>2019-07-12T16:11:12.894Z</lastmod>
+    <data>
+        <display>
+        <title>CentOS7免密码远程登录ssh配置</title>
+        <pubTime>2017-05-06T07:26:28.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://liyong.science/2018/DevOps/</loc>
     <lastmod>2019-06-30T09:32:19.108Z</lastmod>
     <data>
@@ -233,23 +250,6 @@
         <display>
         <title>两种 sudo 技巧</title>
         <pubTime>2017-10-22T16:24:10.000Z</pubTime>
-        
-        <tag>Linux</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://liyong.science/2017/ssh-login/</loc>
-    <lastmod>2018-03-10T07:36:43.447Z</lastmod>
-    <data>
-        <display>
-        <title>CentOS7免密码远程登录ssh配置</title>
-        <pubTime>2017-05-06T07:26:28.000Z</pubTime>
         
         <tag>Linux</tag>
          
